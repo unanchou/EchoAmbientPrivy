@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MOSME · AI 知識導航員 · 四技二專統測</title>
+<title>· AI 知識導航員 · 四技二專統測</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -98,7 +98,7 @@ button{cursor:pointer;font-family:inherit;}
 /* ── SECTION ── */
 .sec{padding:clamp(44px,6vw,72px) clamp(20px,5vw,60px);border-bottom:1px solid var(--bd);overflow:hidden;}
 .sec.alt{background:var(--surf);}
-.sec-inner{max-width:1140px;margin:0 auto;width:100%;overflow:hidden;}
+.sec-inner{max-width:860px;margin:0 auto;width:100%;padding:0 clamp(16px,4vw,40px);box-sizing:border-box;}
 .sec-kicker{font-size:14px;font-family:'DM Mono',monospace;color:var(--grn);letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;text-align:center;}
 .sec-h{font-family:'Noto Serif TC',serif;font-size:clamp(24px,3.2vw,42px);font-weight:900;text-align:center;margin-bottom:7px;letter-spacing:-.01em;}
 .sec-sub{font-size:clamp(15px,1.6vw,16px);color:var(--ink3);text-align:center;margin-bottom:32px;line-height:1.85;max-width:540px;margin-left:auto;margin-right:auto;}
@@ -440,15 +440,15 @@ button{cursor:pointer;font-family:inherit;}
 @media(max-width:400px){.groups-grid{grid-template-columns:1fr;}.mbody{max-width:calc(90% - 36px);}}
 
 /* ── LEFT FLOATING NAV (landing only) ── */
-.side-toc{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:12px;pointer-events:none;}
-#toc-landing,#toc-app{display:flex;flex-direction:column;gap:12px;}
-.side-toc a{pointer-events:all;font-size:13px;font-family:'DM Mono',monospace;color:var(--ink4);text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:6px;letter-spacing:.04em;opacity:.6;}
-.side-toc a::before{content:'';width:20px;height:1px;background:var(--ink4);transition:all .2s;flex-shrink:0;}
-.side-toc a:hover{color:var(--grn);opacity:1;}
-.side-toc a:hover::before{width:28px;background:var(--grn);}
-.side-toc a.active{color:var(--ink2);opacity:.85;}
-.side-toc a.active::before{width:24px;background:var(--ink2);}
-@media(max-width:1100px){.side-toc{display:none;}}
+
+
+
+
+
+
+
+
+@media(max-width:1100px){}
 
 .l-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;cursor:pointer;border:2px solid transparent;transition:all .15s;}
 .l-avatar:hover{border-color:var(--grn);}
@@ -482,6 +482,36 @@ button{cursor:pointer;font-family:inherit;}
 .gc-subj-list{display:flex;flex-direction:column;gap:2px;margin-bottom:4px;flex:1;}
 .nav-av-item{display:flex;align-items:center;width:100%;padding:9px 14px;border:none;background:transparent;font-size:13px;text-align:left;cursor:pointer;color:var(--ink);transition:background .12s;gap:6px;}
 .nav-av-item:hover{background:var(--surf2);}
+
+/* Global content width */
+.screen > *:not(.mo):not(.cart-bar){max-width:100%;}
+#screen-landing section{padding-left:clamp(16px,5vw,60px);padding-right:clamp(16px,5vw,60px);}
+#screen-orders > div, #screen-faq > div{padding-left:clamp(20px,5vw,60px);padding-right:clamp(20px,5vw,60px);}
+/* Groups grid max-width */
+.groups-grid{max-width:100%;}
+/* Common block */
+.common-block{max-width:860px;margin:0 auto;}
+
+.faq-item{border-bottom:1px solid var(--bd);}
+.faq-arr{font-size:18px;font-weight:400;color:var(--ink4);flex-shrink:0;transition:transform .2s;}
+.faq-item.open .faq-arr{transform:rotate(45deg);}
+.faq-item.open .faq-a{display:block;}
+
+.stat-card-landing{background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:28px 20px;text-align:center;transition:transform .2s,box-shadow .2s;}
+.stat-card-landing:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(0,0,0,.08);}
+.stat-num-landing{font-size:clamp(28px,3.5vw,42px);font-weight:900;font-family:'DM Mono',monospace;color:var(--grn);line-height:1;margin-bottom:8px;}
+.stat-label-landing{font-size:13px;color:var(--ink3);}
+
+.l-footer{background:#0d1117;color:#fff;padding:clamp(40px,6vw,72px) clamp(20px,6vw,72px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;}
+.lf-brand{}
+.lf-col{}
+.lf-col-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;font-family:'DM Mono',monospace;}
+.lf-link{display:block;font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;background:none;border:none;cursor:pointer;padding:4px 0;text-align:left;transition:color .15s;}
+.lf-link:hover{color:#fff;}
+.lf-bottom{background:#0d1117;border-top:1px solid rgba(255,255,255,.08);padding:16px clamp(20px,6vw,72px);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.28);}
+footer.l-footer ~ *{background:#0d1117;}
+/* Wrap footer in dark container */
+#screen-landing > footer.l-footer{max-width:none;padding:0;}
 </style>
 </head>
 <body>
@@ -527,7 +557,7 @@ button{cursor:pointer;font-family:inherit;}
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-cell"><div class="sc-n">20</div><div class="sc-l">統測群類</div></div>
-    <div class="stat-cell"><div class="sc-n" style="color:var(--grn)">NT$2,000</div><div class="sc-l">單科授權 · 3年有效</div></div>
+    <div class="stat-cell"><div class="sc-n" style="color:var(--grn)">NT$2,000</div><div class="sc-l">單科授權 · 1年有效</div></div>
     <div class="stat-cell"><div class="sc-n" style="color:var(--amb)">9折</div><div class="sc-l">群科包優惠</div></div>
     <div class="stat-cell"><div class="sc-n" style="color:var(--blu)">AI</div><div class="sc-l">自適應出題 + 排程</div></div>
   </div>
@@ -583,40 +613,7 @@ button{cursor:pointer;font-family:inherit;}
 </section>
 
 <!-- PRICING -->
-<section class="sec alt" id="pricing-sec">
-  <div class="sec-inner">
-    <div class="sec-kicker">方案與定價</div>
-    <h2 class="sec-h">按需購買，3年有效</h2>
-    <p class="sec-sub">沒有月費，沒有自動續約。購買後授權3年，全功能開放。</p>
-    <div class="price-grid">
-      <div class="pc">
-        <span class="pc-badge" style="background:var(--grns);color:var(--grn)">單科授權</span>
-        <div class="pc-name">單科購買</div>
-        <div class="pc-price">NT$2,000</div>
-        <div class="pc-sub">每科 · 購買即開通 · 授權3年</div>
-        <button class="pc-cta" style="background:var(--surf2);border:1.5px solid var(--bd2);color:var(--ink)" onclick="lScroll('groups-sec')">選擇科目 →</button>
-        <div class="pc-li"><span class="pm">✓</span>該科目 AI 家教無限對話</div>
-        <div class="pc-li"><span class="pm">✓</span>AI 自適應課程排程</div>
-        <div class="pc-li"><span class="pm">✓</span>AI 智慧出題試卷</div>
-        <div class="pc-li"><span class="pm">✓</span>弱點分析 + 間隔複習</div>
-        <div class="pc-li" style="color:var(--ink4)"><span style="color:var(--ink4)">—</span>跨科 AI 整合回答</div>
-      </div>
-      <div class="pc feat">
-        <span class="pc-badge" style="background:var(--amb);color:#fff">群科包 推薦</span>
-        <div class="pc-name">群科包</div>
-        <div class="pc-price" style="color:var(--grn);visibility:hidden">NT$2,000</div>
-        <div class="pc-sub">整個群科全科9折 · 授權3年</div>
-        <button class="pc-cta" style="background:var(--grn);color:#fff" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'" onclick="lScroll('groups-sec')">選擇群科包 →</button>
-        <div class="pc-li"><span class="pm">✓</span>以上所有單科功能</div>
-        <div class="pc-li"><span class="pm">✓</span>整個群科全科目開通</div>
-        <div class="pc-li"><span class="pm">✓</span>跨科 AI 整合回答</div>
-        <div class="pc-li"><span class="pm">✓</span>全群科整合儀表板</div>
-        <div class="pc-li"><span class="pm">✓</span>AI 跨科排程最佳化</div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:11px;font-family:'DM Mono',monospace;color:var(--ink4);margin-top:13px">授權3年 · 無月費 · 無自動續約 · 支援學校序號抵用</p>
-  </div>
-</section>
+
 
 <!-- VOICES -->
 <section class="sec">
@@ -632,25 +629,113 @@ button{cursor:pointer;font-family:inherit;}
 </section>
 
 <!-- FAQ -->
-<section class="sec alt" id="faq-sec">
-  <div class="sec-inner" style="max-width:600px">
-    <h2 class="sec-h" style="margin-bottom:18px">常見問題</h2>
-    <div id="faq-list"></div>
+
+
+
+<!-- PRICING SECTION -->
+<section class="sec" id="pricing-sec">
+  <div class="sec-inner" style="max-width:860px">
+    <div class="sec-kicker">方案與定價</div>
+    <h2 class="sec-h">按需購買，1年有效</h2>
+    <p class="sec-sub">沒有月費，沒有自動續約。購買後授權1年，全功能開放。</p>
+    <div class="price-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px">
+      <div class="pc" style="background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:28px">
+        <div class="pc-tier t-s" style="margin-bottom:12px">單科授權</div>
+        <div class="pc-name">單科購買</div>
+        <div class="pc-price" style="color:var(--grn)">NT$2,000</div>
+        <div style="font-size:13px;color:var(--ink3);margin-bottom:20px">每科 · 購買即開通 · 授權1年</div>
+        <button class="btn-p" style="width:100%;margin-bottom:20px" onclick="lScroll('groups-sec')">選擇科目 →</button>
+        <div class="pc-li">✓ 該科目 AI 家教無限對話</div>
+        <div class="pc-li">✓ AI 自適應課程排程</div>
+        <div class="pc-li">✓ AI 智慧出題試卷</div>
+        <div class="pc-li">✓ 弱點分析 + 間隔複習</div>
+        <div class="pc-li" style="color:var(--ink4)">— 跨科 AI 整合回答</div>
+      </div>
+      <div class="pc" style="background:var(--grns);border:2px solid var(--grn);border-radius:16px;padding:28px;position:relative">
+        <div class="pc-tier t-p" style="margin-bottom:12px">群科包 推薦</div>
+        <div class="pc-name">群科包</div>
+        <div class="pc-price" style="color:var(--grn);visibility:hidden">NT$0</div>
+        <div style="font-size:13px;color:var(--ink3);margin-bottom:20px">整個群科全科9折 · 授權1年</div>
+        <button class="btn-p" style="width:100%;margin-bottom:20px;background:var(--grn);color:#fff" onclick="lScroll('groups-sec')">選擇群科包 →</button>
+        <div class="pc-li">✓ 以上所有單科功能</div>
+        <div class="pc-li">✓ 整個群科全科目開通</div>
+        <div class="pc-li">✓ 跨科 AI 整合回答</div>
+        <div class="pc-li">✓ 全群科整合儀表板</div>
+        <div class="pc-li">✓ AI 跨科排程最佳化</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:13px;color:var(--ink4);margin-top:16px">授權1年 · 無月費 · 無自動續約 · 支援學校序號抵用</div>
   </div>
 </section>
 
-<section class="final">
-  <h2 class="final-h">選你的群科<br>讓 AI 帶你備考</h2>
-  <p class="final-sub">免費試用，有感覺再買。授權 1 年，無月費。</p>
-  <div class="final-acts">
-    <button class="f-p" onclick="lScroll('groups-sec')">立即選擇科目</button>
-    <button class="f-g" onclick="openModal('login-modal')">已有帳號，登入</button>
+<!-- FAQ SECTION -->
+
+
+<!-- STATS DASHBOARD -->
+<section class="sec" id="stats-sec">
+  <div class="sec-inner" style="max-width:860px">
+    <div class="sec-kicker">平台數據</div>
+    <h2 class="sec-h" style="font-size:clamp(22px,2.8vw,34px);margin-bottom:8px">真實使用中</h2>
+    <p class="sec-sub" style="margin-bottom:32px">正在成長的 AI 備考平台</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <div class="stat-card-landing">
+        <div class="stat-num-landing" data-target="2847" data-suffix="">0</div>
+        <div class="stat-label-landing">累計會員人數</div>
+      </div>
+      <div class="stat-card-landing">
+        <div class="stat-num-landing" data-target="12400" data-suffix="+">0</div>
+        <div class="stat-label-landing">題庫數量</div>
+      </div>
+      <div class="stat-card-landing" style="--card-accent:var(--amb)">
+        <div class="stat-num-landing" data-target="143" data-suffix="" style="color:var(--amb)">0</div>
+        <div class="stat-label-landing">即時線上人數</div>
+      </div>
+      <div class="stat-card-landing">
+        <div class="stat-num-landing" data-target="98" data-suffix="%">0</div>
+        <div class="stat-label-landing">學生滿意度</div>
+      </div>
+    </div>
   </div>
 </section>
+
+
+<div style="background:#0d1117;">
 <footer class="l-footer">
-  <div class="lf-l">AI 知識導航員<span class="logo-chip" style="opacity:.3">MOSME</span></div>
-  <div class="lf-r">© 2026 MOSME · 授權3年 · 無月費</div>
+  <div class="lf-brand">
+    <div style="font-family:'Noto Serif TC',serif;font-size:28px;font-weight:900;letter-spacing:.04em;color:#fff;margin-bottom:6px">
+      AI 知識導航員
+    </div>
+    <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:16px">四技二專統測 AI 備考平台</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.38);line-height:1.7;max-width:320px">由 勁圓科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，解決統測備考的煩惱。</p>
+  </div>
+  <div class="lf-col">
+    <div class="lf-col-title">快速連結</div>
+    <button class="lf-link" onclick="lScroll('groups-sec')">選擇科目</button>
+    <button class="lf-link" onclick="lScroll('pricing-sec')">方案定價</button>
+    <button class="lf-link" onclick="gotoLearning()">學習中心</button>
+    <button class="lf-link" onclick="gotoPage('faq')">常見問題</button>
+  </div>
+  <div class="lf-col">
+    <div class="lf-col-title">MOSME 平台</div>
+    <a class="lf-link" href="#">台科大圖書</a>
+    <a class="lf-link" href="#">ZTC 專屬呈現平臺</a>
+    <a class="lf-link" href="#">MLC 創客學習歷程平臺</a>
+    <a class="lf-link" href="#">GTC 全民科技力診斷平臺</a>
+  </div>
+  <div class="lf-col">
+    <div class="lf-col-title">聯絡我們</div>
+    <a class="lf-link" href="mailto:mosme@jyic.net">mosme@jyic.net</a>
+    <a class="lf-link" href="#">客服中心</a>
+    <div class="lf-col-title" style="margin-top:16px">法律資訊</div>
+    <a class="lf-link" href="#">隱私權政策</a>
+    <a class="lf-link" href="#">服務條款</a>
+  </div>
 </footer>
+<div class="lf-bottom">
+  <span>© 2026 勁圓科教集團 · 保留所有權利</span>
+  <span>授權1年 · 無月費 · 模擬展示</span>
+</div>
+</div>
 </div><!-- /landing -->
 
 <!-- LOGIN MODAL -->
@@ -927,6 +1012,7 @@ button{cursor:pointer;font-family:inherit;}
 function safeSet(id,prop,val){const el=document.getElementById(id);if(el)el[prop]=val;}
 function safeStyle(id,prop,val){const el=document.getElementById(id);if(el)el.style[prop]=val;}
 let curUser=null, curSubj=null, curPsn='guide';
+let currentPage='landing', faqPageBuilt=false;
 let quizCount=10, quizMode='adaptive', dailyH='1';
 let rIdx=0, step=0, uName='', abilityScores={}, quizQs=[], schedDate=null, schedSel=null;
 // ── THEME ──
@@ -1326,17 +1412,6 @@ buildCarousel();
 document.getElementById('car-track').addEventListener('mouseenter',function(){clearInterval(carTimer);});
 document.getElementById('car-track').addEventListener('mouseleave',function(){startCarAuto();});
 // ── FAQ ──
-[{q:'什麼是群科包？',a:'一次購買整個群科所有統測考科，比單科分開買享有9折優惠，授權3年有效。'},
- {q:'每科 NT$2,000 指的是什麼？',a:'統測每個專業科目各自算一科，例如「機件原理」一科 NT$2,000、「機械力學」一科 NT$2,000。可以勾選多科一起結帳。'},
- {q:'學校序號怎麼使用？',a:'學校代繳費後，提供格式 MOSME-XXXX-XXXX 的序號，在購買頁面輸入即可全額抵免。'},
- {q:'付款方式有哪些？',a:'支援 Apple Pay、LINE Pay 和信用卡，全部由藍新金流處理，256-bit SSL 加密。'},
- {q:'AI 家教人格有什麼差別？',a:'引導員（✦）：蘇格拉底式不給答案。熱情夥伴（💛）：中性活力鼓勵。嚴謹導師（📐）：直接高標準診斷弱點。'},
-].forEach(function(f,i){
-  const d=document.createElement('div');d.className='faq-item';d.id='lf'+i;
-  d.innerHTML='<button class="faq-q" onclick="document.getElementById(\'lf'+i+'\').classList.toggle(\'open\')">'+f.q+'<span class="faq-ico">+</span></button><div class="faq-a">'+f.a+'</div>';
-  document.getElementById('faq-list').appendChild(d);
-});
-function setH(btn,h){dailyH=h;document.querySelectorAll('#daily-hours-btns .qb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');}
 function setQC(btn,n){quizCount=n;document.querySelectorAll('#qm-count .qb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');}
 function setQM(btn,m){quizMode=m;document.querySelectorAll('.qmb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');}
 
@@ -1393,18 +1468,6 @@ function buildOrders(){
   }).join('');
 }
 
-// ── SIDE TOC ──
-function updateSideToc(){
-  const sections=['groups-sec','pricing-sec','faq-sec'];
-  const links=document.querySelectorAll('.side-toc a');
-  let active='';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&el.getBoundingClientRect().top<200)active=id;
-  });
-  links.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+active);});
-}
-window.addEventListener('scroll',updateSideToc,{passive:true});
 
 // ── AVATAR ──
 function updateNavAvatar(){
@@ -2015,7 +2078,7 @@ function openShareCard(){
   if(!curUser)return;
   const subjs=getUserSubjs(curUser);
   document.getElementById('faq-modal-title').textContent='學習進度分享卡';
-  document.getElementById('faq-modal-body').innerHTML='<div style="display:flex;justify-content:center;margin-bottom:16px"><div style="width:290px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:22px;text-align:center;box-shadow:var(--sh)"><div style="font-size:10px;font-family:\'DM Mono\',monospace;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">AI 知識導航員 · MOSME 統測</div><div style="font-family:\'Noto Serif TC\',serif;font-size:20px;font-weight:900;margin-bottom:4px">'+curUser.name+'</div><div style="font-size:11px;font-family:\'DM Mono\',monospace;color:var(--ink3);margin-bottom:16px">'+curUser.xpLabel+'</div>'+(schedDate?'<div style="font-size:28px;font-weight:900;font-family:\'DM Mono\',monospace;color:var(--amb);margin-bottom:4px">'+Math.max(0,Math.round((schedDate-new Date())/86400000))+'</div><div style="font-size:11px;color:var(--ink3);margin-bottom:14px">統測倒數天數</div>':'')+'<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:12px">'+subjs.map(s=>'<div style="font-size:10px;font-family:\'DM Mono\',monospace;padding:2px 8px;border-radius:12px;background:var(--grns);color:var(--grn);font-weight:700">'+s.name+' '+(s.mastery||0)+'%</div>').join('')+'</div><div style="font-size:9px;font-family:\'DM Mono\',monospace;color:var(--ink4);border-top:1px solid var(--bd);padding-top:8px">mosme.net · 授權3年有效</div></div></div>'
+  document.getElementById('faq-modal-body').innerHTML='<div style="display:flex;justify-content:center;margin-bottom:16px"><div style="width:290px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:22px;text-align:center;box-shadow:var(--sh)"><div style="font-size:10px;font-family:\'DM Mono\',monospace;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">AI 知識導航員 · MOSME 統測</div><div style="font-family:\'Noto Serif TC\',serif;font-size:20px;font-weight:900;margin-bottom:4px">'+curUser.name+'</div><div style="font-size:11px;font-family:\'DM Mono\',monospace;color:var(--ink3);margin-bottom:16px">'+curUser.xpLabel+'</div>'+(schedDate?'<div style="font-size:28px;font-weight:900;font-family:\'DM Mono\',monospace;color:var(--amb);margin-bottom:4px">'+Math.max(0,Math.round((schedDate-new Date())/86400000))+'</div><div style="font-size:11px;color:var(--ink3);margin-bottom:14px">統測倒數天數</div>':'')+'<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:12px">'+subjs.map(s=>'<div style="font-size:10px;font-family:\'DM Mono\',monospace;padding:2px 8px;border-radius:12px;background:var(--grns);color:var(--grn);font-weight:700">'+s.name+' '+(s.mastery||0)+'%</div>').join('')+'</div><div style="font-size:9px;font-family:\'DM Mono\',monospace;color:var(--ink4);border-top:1px solid var(--bd);padding-top:8px">mosme.net · 授權1年有效</div></div></div>'
     +'<div style="text-align:center;display:flex;gap:10px;justify-content:center"><button style="padding:9px 22px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer" onclick="navigator.clipboard.writeText(\'📚 MOSME AI 統測\\n'+curUser.name+'\\n'+subjs.map(s=>s.name+' '+(s.mastery||0)+'%').join(' · ')+'\\nmosme.net\').then(()=>toast(\'✓ 已複製！\'))">複製文字</button><button style="padding:9px 18px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;color:var(--ink2);font-size:13px;cursor:pointer" onclick="closeModal(\'faq-modal\')">關閉</button></div>';
   openModal('faq-modal');
 }
@@ -2034,7 +2097,6 @@ function openFAQ(){
 }
 
 // ── PAGE NAVIGATION ──
-let currentPage='landing';
 function gotoPage(page){
   ['landing','app','orders','faq'].forEach(p=>{
     const el=document.getElementById('screen-'+p);
@@ -2118,8 +2180,8 @@ function buildOrdersPage(){
   }).filter(Boolean).join('');
 }
 
+
 // ── FAQ PAGE ──
-let faqPageBuilt=false;
 function buildFaqPage(){
   if(faqPageBuilt)return;
   faqPageBuilt=true;
@@ -2128,42 +2190,49 @@ function buildFaqPage(){
   const cats=[
     {name:'方案與定價',items:[
       {q:'各科目怎麼定價？',a:'每個統測專業科目各 NT$2,000，授權 1 年。無月費、無自動續約。'},
-      {q:'什麼是群科包？',a:'一次購買整個群科所有考科，享 9 折。例如機械群 5 科，原價 NT$10,000 → 群科包 NT$9,000。'},
+      {q:'什麼是群科包？',a:'一次購買整個群科所有考科，享 9 折優惠。例如機械群 5 科，原價 NT$10,000 → 群科包 NT$9,000。'},
       {q:'共同科目包是什麼？',a:'國文 + 英文 + 數學（A/B/C 選一）三科組合，NT$5,400（9折）。'},
       {q:'授權 1 年後需要續約嗎？',a:'需重新購買。到期前 30 天會提醒，歷史紀錄保留 6 個月。'},
     ]},
     {name:'付款方式',items:[
-      {q:'支援哪些付款？',a:'Apple Pay、LINE Pay、信用卡，由藍新金流處理，256-bit SSL 加密，PCI DSS 合規。'},
+      {q:'支援哪些付款方式？',a:'Apple Pay、LINE Pay、信用卡，由藍新金流處理，256-bit SSL 加密，PCI DSS 合規。'},
       {q:'可以用學校序號嗎？',a:'可以。序號格式 MOSME-XXXX-XXXX，在付款頁輸入即可全額抵免。'},
       {q:'付款後多久開通？',a:'付款成功後立即開通。'},
     ]},
     {name:'AI 功能',items:[
-      {q:'AI 家教三種人格差別？',a:'引導員（✦）：蘇格拉底式不給答案。熱情夥伴（💛）：鼓勵活力。嚴謹導師（📐）：直接高效。'},
-      {q:'AI 試卷怎麼用？',a:'選科目、題數（5/10/20/40）、模式（自適應/集中弱點/模擬統測/隨機），答完即時解析。'},
+      {q:'AI 家教三種人格差別？',a:'引導員（✦）：蘇格拉底式引導，不直接給答案。熱情夥伴（💛）：活潑鼓勵。嚴謹導師（📐）：直接高效點出弱點。'},
+      {q:'AI 試卷怎麼用？',a:'選科目、題數（5/10/20/40 題）、模式（AI 自適應／集中弱點／模擬統測／隨機），答完即時解析。'},
       {q:'課程排程是什麼？',a:'輸入統測日期 + 每天可讀時間，AI 依各科掌握度自動排學習任務。'},
     ]},
-    {name:'帳號試用',items:[
-      {q:'試用（D）有什麼限制？',a:'可體驗，AI 回應超過 10 字的部分模糊，購買後解鎖完整功能。'},
+    {name:'帳號與試用',items:[
+      {q:'試用（D）有什麼限制？',a:'可體驗，AI 回應超過 20 字的部分模糊，購買後解鎖完整功能。'},
       {q:'如何進入學習中心？',a:'點上方「學習中心」，選擇使用者後進入 AI 家教、試卷、課程表等分頁。'},
     ]},
   ];
   let activeCat=0;
-  const render=()=>{
-    body.innerHTML=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">`
-      +cats.map((cat,i)=>`<button onclick="faqSetCat(${i})" style="padding:7px 18px;border-radius:20px;border:1.5px solid ${i===activeCat?'var(--grn)':'var(--bd2)'};background:${i===activeCat?'var(--grns)':'var(--surf2)'};color:${i===activeCat?'var(--grn)':'var(--ink2)'};font-size:14px;font-weight:${i===activeCat?700:500};cursor:pointer;transition:all .15s">${cat.name}</button>`).join('')
-    +'</div>'
-    +cats[activeCat].items.map((item,idx)=>`
-      <div style="border-bottom:1px solid var(--bd)">
-        <button onclick="faqToggle('fpi${idx}')" style="width:100%;padding:14px 0;background:none;border:none;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15px;font-weight:700;color:var(--ink)">${item.q}<span style="font-size:16px;color:var(--ink4);flex-shrink:0">+</span></button>
-        <div id="fpi${idx}" style="display:none;padding-bottom:14px;font-size:14px;color:var(--ink2);line-height:1.8">${item.a}</div>
-      </div>`).join('');
-  };
-  window.faqSetCat=i=>{activeCat=i;render();};
-  window.faqToggle=id=>{const el=document.getElementById(id);if(el)el.style.display=el.style.display==='none'?'block':'none';};
-  render();
+  function renderFaq(){
+    // Category tabs
+    var tabHtml='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">';
+    cats.forEach(function(cat,i){
+      var active=i===activeCat;
+      tabHtml+='<button onclick="window._faqSetCat('+i+')" style="padding:7px 18px;border-radius:20px;border:1.5px solid '+(active?'var(--grn)':'var(--bd2)')+';background:'+(active?'var(--grns)':'var(--surf2)')+';color:'+(active?'var(--grn)':'var(--ink2)')+';font-size:14px;font-weight:'+(active?700:500)+';cursor:pointer;transition:all .15s">'+cat.name+'</button>';
+    });
+    tabHtml+='</div>';
+    // Items
+    var itemHtml='';
+    cats[activeCat].items.forEach(function(item,idx){
+      itemHtml+='<div style="border-bottom:1px solid var(--bd)">'
+        +'<button onclick="window._faqToggle('+idx+')" style="width:100%;padding:14px 0;background:none;border:none;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15px;font-weight:700;color:var(--ink)">'+item.q+'<span style="font-size:16px;color:var(--ink4);flex-shrink:0">+</span></button>'
+        +'<div id="fi'+idx+'" style="display:none;padding-bottom:14px;font-size:14px;color:var(--ink2);line-height:1.8">'+item.a+'</div>'
+        +'</div>';
+    });
+    body.innerHTML=tabHtml+itemHtml;
+  }
+  window._faqSetCat=function(i){activeCat=i;renderFaq();};
+  window._faqToggle=function(id){var el=document.getElementById(id);if(el)el.style.display=el.style.display==='none'?'block':'none';};
+  renderFaq();
 }
 
-// ── TRIAL MASK ──
 function applyTrialMask(){
   if(!curUser||curUser.tier!=='trial')return;
   document.querySelectorAll('#app-msgs .bbl').forEach(b=>{
@@ -2176,7 +2245,7 @@ function applyTrialMask(){
 }
 
 // ── COMPAT STUBS ──
-function lcUpdateToc(){}
+
 function lncToggle(){}
 function lncClose(){}
 function lncGoOrders(){gotoPage('orders');}
@@ -2202,22 +2271,42 @@ document.addEventListener('click',function(e){
     if(m) m.style.display='none';
   }
 });
+
+// ── STATS COUNTER ANIMATION ──
+(function(){
+  function animateCounter(el){
+    const target=parseInt(el.dataset.target);
+    const suffix=el.dataset.suffix||'';
+    const duration=1800;
+    const start=performance.now();
+    function update(now){
+      const t=Math.min((now-start)/duration,1);
+      // ease-out cubic
+      const ease=1-Math.pow(1-t,3);
+      const val=Math.round(ease*target);
+      el.textContent=val.toLocaleString()+suffix;
+      if(t<1)requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+  const observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll('.stat-num-landing').forEach(animateCounter);
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  document.addEventListener('DOMContentLoaded',function(){
+    const sec=document.getElementById('stats-sec');
+    if(sec)observer.observe(sec);
+  });
+})();
+
 </script>
 
 <!-- SIDE TOC (always visible, context-aware) -->
-<nav class="side-toc" id="side-toc">
-  <div id="toc-landing">
-    <a href="#groups-sec" onclick="lScroll('groups-sec');return false">群科科目</a>
-    <a href="#pricing-sec" onclick="lScroll('pricing-sec');return false">方案定價</a>
-    <a href="#faq-sec" onclick="lScroll('faq-sec');return false">常見問題</a>
-  </div>
-  <div id="toc-app" style="display:none">
-    <a href="#" onclick="switchTab('chat');return false">AI 家教</a>
-    <a href="#" onclick="switchTab('quiz');return false">試卷</a>
-    <a href="#" onclick="switchTab('sched');return false">課程表</a>
-    <a href="#" onclick="switchTab('dash');return false">儀表板</a>
-    <a href="#" onclick="switchTab('subjs');return false">科目庫</a>
-  </div>
-</nav>
+
+<div id="faq-list" style="display:none"></div>
 </body>
 </html>
