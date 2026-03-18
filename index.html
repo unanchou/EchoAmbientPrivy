@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>· AI 知識導航員 · 四技二專統測</title>
+<title>MOSME · AI 知識導航員 · 四技二專統測</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -305,7 +305,7 @@ button{cursor:pointer;font-family:inherit;}
 .sched-body{overflow-y:auto;flex:1;padding:clamp(14px,2vw,26px);}
 .sched-inner{max-width:860px;margin:0 auto;}
 .sched-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px;}
-.sd{background:var(--surf);border:1px solid var(--bd);border-radius:9px;padding:8px 6px;text-align:center;min-height:84px;}
+.sd{background:var(--surf);border:1px solid var(--bd);border-radius:9px;padding:8px 6px;text-align:center;min-height:96px;}
 .sd.today{border-color:var(--grn);background:var(--grns);}
 .sd.has-t{cursor:pointer;}
 .sd-lbl{font-size:9px;font-family:'DM Mono',monospace;color:var(--ink4);margin-bottom:2px;}
@@ -502,7 +502,7 @@ button{cursor:pointer;font-family:inherit;}
 .stat-num-landing{font-size:clamp(28px,3.5vw,42px);font-weight:900;font-family:'DM Mono',monospace;color:var(--grn);line-height:1;margin-bottom:8px;}
 .stat-label-landing{font-size:13px;color:var(--ink3);}
 
-.l-footer{background:#0d1117;color:#fff;padding:clamp(40px,6vw,72px) clamp(20px,4vw,48px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:900px;margin:0 auto;box-sizing:border-box;}
+.l-footer{background:#0d1117;color:#fff;padding:clamp(40px,6vw,72px) clamp(20px,4vw,48px);display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;max-width:900px;margin:0 auto;box-sizing:border-box;}
 .lf-brand{}
 .lf-col{}
 .lf-col-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;font-family:'DM Mono',monospace;}
@@ -642,8 +642,7 @@ footer.l-footer ~ *{background:#0d1117;}
 <section class="sec" id="stats-sec">
   <div class="sec-inner" style="max-width:860px">
     <div class="sec-kicker">平台數據</div>
-    <h2 class="sec-h" style="font-size:clamp(22px,2.8vw,34px);margin-bottom:8px">真實使用中</h2>
-    <p class="sec-sub" style="margin-bottom:32px">正在成長的 AI 備考平台</p>
+    <h2 class="sec-h" style="font-size:clamp(22px,2.8vw,34px);margin-bottom:24px">正在成長的 AI 備考平台</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
       <div class="stat-card-landing">
         <div class="stat-num-landing" data-target="2847" data-suffix="">0</div>
@@ -669,18 +668,9 @@ footer.l-footer ~ *{background:#0d1117;}
 <div style="background:#0d1117;">
 <footer class="l-footer">
   <div class="lf-brand">
-    <div style="font-family:'Noto Serif TC',serif;font-size:28px;font-weight:900;letter-spacing:.04em;color:#fff;margin-bottom:6px">
-      AI 知識導航員
-    </div>
-    <div style="color:rgba(255,255,255,.45);font-size:13px;margin-bottom:16px">四技二專統測 AI 備考平台</div>
-    <p style="font-size:13px;color:rgba(255,255,255,.38);line-height:1.7;max-width:320px">由勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
-  </div>
-  <div class="lf-col">
-    <div class="lf-col-title">快速連結</div>
-    <button class="lf-link" onclick="lScroll('groups-sec')">選擇科目</button>
-    <button class="lf-link" onclick="lScroll('pricing-sec')">方案定價</button>
-    <button class="lf-link" onclick="gotoLearning()">學習中心</button>
-    <button class="lf-link" onclick="gotoPage('faq')">常見問題</button>
+    <div style="font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">AI 知識導航員</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.42);margin-bottom:14px">四技二專統測 AI 備考平台</div>
+    <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:300px">由 MOSME 勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
   </div>
   <div class="lf-col">
     <div class="lf-col-title">MOSME 平台</div>
@@ -690,16 +680,15 @@ footer.l-footer ~ *{background:#0d1117;}
     <a class="lf-link" href="#">GTC 全民科技力診斷平臺</a>
   </div>
   <div class="lf-col">
-    <div class="lf-col-title">聯絡我們</div>
+    <div class="lf-col-title">聯絡與法律</div>
     <a class="lf-link" href="mailto:mosme@jyic.net">mosme@jyic.net</a>
     <a class="lf-link" href="#">客服中心</a>
-    <div class="lf-col-title" style="margin-top:16px">法律資訊</div>
     <a class="lf-link" href="#">隱私權政策</a>
     <a class="lf-link" href="#">服務條款</a>
   </div>
 </footer>
 <div class="lf-bottom">
-  <span>© 2026 勁圓科教集團 · 保留所有權利</span>
+  <span>© 2026 勁園科教集團 · 保留所有權利</span>
   <span>授權1年 · 無月費 · 模擬展示</span>
 </div>
 </div>
@@ -905,8 +894,12 @@ footer.l-footer ~ *{background:#0d1117;}
       <div class="sched-body"><div class="sched-inner">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
           <div><div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;margin-bottom:2px">課程表</div><div style="font-size:13px;color:var(--ink3)" id="sched-sub">尚未設定考試日期</div></div>
-          <button style="padding:8px 18px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'" onclick="openSchedModal()">AI 重新排程</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button id="sched-analysis-btn" onclick="toggleSchedAnalysis()" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--bd2);background:var(--surf2);color:var(--ink2);font-size:13px;cursor:pointer">📊 AI 分析</button>
+            <button style="padding:8px 18px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer" onclick="if(schedDate){window._schedViewMonth=null;buildSchedFull();}else openSchedModal()">AI 重新排程</button>
+          </div>
         </div>
+        <div id="sched-analysis-panel" style="display:none;margin-bottom:16px"></div>
         <div id="sched-content"><div style="text-align:center;padding:60px 20px;color:var(--ink3)"><div style="font-size:52px;margin-bottom:12px">📅</div><div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700;margin-bottom:8px">尚未生成課程表</div><div style="font-size:14px;margin-bottom:20px">設定考試日期，AI 幫你排好備考課程</div><button style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer" onclick="openSchedModal()">設定日期 →</button></div></div>
       </div></div>
     </div>
@@ -1458,7 +1451,7 @@ const SLIDES=[
   {eyebrow:'AI 自適應學習',title:'讀對的東西\n用對的方式',sub:'AI 分析你每個知識點的掌握程度，排定最佳備考路徑。',p1:'選擇群科',p2:'了解更多',icon:'🧠',cls:'cs-0',p1a:"lScroll('groups-sec')",p2a:"lScroll('pricing-sec')"},
   {eyebrow:'AI 智慧試卷',title:'AI 出題\n不是刷題',sub:'依掌握度自適應出題，只補你最弱的知識點。模擬統測命題比例，40題全真。',p1:'立即選科',p2:'試用看看',icon:'📝',cls:'cs-1',p1a:"lScroll('groups-sec')",p2a:"openModal('login-modal')"},
   {eyebrow:'AI 課程排程',title:'告訴 AI 考試日期\nAI 幫你排好每一天',sub:'輸入統測日期 + 每天可讀時間，AI 根據各科掌握度交叉分析，自動生成學習任務。',p1:'選擇群科包',p2:'看排程功能',icon:'📅',cls:'cs-2',p1a:"lScroll('groups-sec')",p2a:"openModal('login-modal')"},
-  {eyebrow:'授權 1 年 · 無月費',title:'買一次\n用三年',sub:'沒有月費，沒有自動續約。單科 NT$2,000 起，群科包九折。支援學校序號全額抵用。',p1:'查看方案',p2:'登入',icon:'🎯',cls:'cs-3',p1a:"lScroll('pricing-sec')",p2a:"openModal('login-modal')"},
+  {eyebrow:'授權 1 年 · 無月費',title:'買一次\n用一年',sub:'沒有月費，沒有自動續約。單科 NT$2,000 起，群科包九折優惠。支援學校序號全額抵用。',p1:'查看方案',p2:'登入',icon:'🎯',cls:'cs-3',p1a:"lScroll('pricing-sec')",p2a:"openModal('login-modal')"},
 ];
 let carI=0,carTimer=null;
 function buildCarousel(){
@@ -1853,9 +1846,43 @@ const CHAT_REPS={
 };
 function handleChat(raw){
   appendU(raw);
-  if(raw.includes('試卷')||raw.includes('出題'))setTimeout(()=>{appendAI('好！我幫你生成試卷。','');openModal('quiz-modal');},500);
-  else if(raw.includes('課程')||raw.includes('排程'))setTimeout(()=>{appendAI('好！切換到課程表——','');switchTab('sched');},500);
-  else{
+  // Check for specific intents
+  const isQuiz=raw.includes('試卷')||raw.includes('出題')||raw.includes('考題');
+  const isSched=raw.includes('課程表')||raw.includes('排課')||raw.includes('排程')&&raw.includes('日期');
+  const isDate=step==='ask_date'&&/\d/.test(raw);
+
+  if(isQuiz){
+    setTimeout(()=>{appendAI('好！我幫你生成試卷。','');openModal('quiz-modal');},500);
+  } else if(isSched){
+    setTimeout(()=>{appendAI('好！切換到課程表——','');switchTab('sched');},500);
+  } else if(step==='ask_date'){
+    // Only parse date if it looks like a date
+    const d=parseDate(raw);
+    if(d){
+      schedDate=d;step=5;
+      const days=Math.max(0,Math.round((d-new Date())/86400000));
+      setTimeout(()=>{
+        appendAI('統測倒數 '+days+' 天！✦\n\nAI 已根據你的程度和考試日期，生成個人化課程排程。','排程完成');
+        buildSchedFull();buildDash();
+        setTimeout(()=>{
+          appendChoices(['📝 先出一份診斷試卷','💬 繼續聊考科問題','📅 查看課程排程'],'postOnboard');
+          document.getElementById('app-ci').placeholder='直接提問…';
+        },800);
+      },700);
+    } else {
+      // Not a date format — treat as normal question, exit ask_date mode
+      step=5;
+      document.getElementById('app-ci').placeholder='直接提問…';
+      const s=getSubj(curSubj);
+      const reps=[...CHAT_REPS[curPsn],'關於「'+(s&&s.t?s.t[Math.floor(Math.random()*s.t.length)]:'這個概念')+'」，你能用自己的話完整說明嗎？'];
+      setTimeout(()=>{
+        const html='<div class="bbl"><div class="msg-acts"><button class="mac" onclick="copyBbl(this)">⎘</button></div>'+reps[rIdx%reps.length]+'</div><div class="mmeta">AI 家教</div>';
+        document.getElementById('app-msgs').insertAdjacentHTML('beforeend','<div class="msg"><div class="mav '+mavCls(curPsn)+'">'+avTxt(curPsn)+'</div><div class="mbody">'+html+'</div></div>');
+        document.getElementById('app-msgs').scrollTop=99999;rIdx++;
+      },520);
+    }
+  } else {
+    // Free conversation
     const s=getSubj(curSubj);
     const reps=[...CHAT_REPS[curPsn],'關於「'+(s&&s.t?s.t[Math.floor(Math.random()*s.t.length)]:'這個概念')+'」，你能用自己的話完整說明嗎？'];
     setTimeout(()=>{
@@ -1865,6 +1892,7 @@ function handleChat(raw){
     },520);
   }
 }
+
 function appSend(e){
   if(e.key!=='Enter'&&e.type!=='click')return;
   const ci=document.getElementById('app-ci');const raw=ci.value.trim();if(!raw)return;ci.value='';
@@ -2036,51 +2064,110 @@ function generateSchedule(){
   schedDate=d;closeModal('sched-modal');switchTab('sched');buildSchedFull();toast('✓ AI 課程表已生成！');
 }
 function buildSchedFull(){
-  if(!schedDate){document.getElementById('sched-content').innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--ink3)"><button style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer" onclick="openSchedModal()">設定日期 →</button></div>';return;}
+  const contentEl=document.getElementById('sched-content');
+  const subEl=document.getElementById('sched-sub');
+  if(!schedDate){
+    contentEl.innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--ink3)"><div style="font-size:16px;margin-bottom:16px">尚未設定考試日期</div><button style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:15px;font-weight:700;cursor:pointer" onclick="openSchedModal()">設定日期 →</button></div>';
+    return;
+  }
   const today=new Date();today.setHours(0,0,0,0);
   const daysLeft=Math.max(0,Math.round((schedDate-today)/86400000));
   const allSubjs=getUserSubjs(curUser);
   const selCodes=schedSel||allSubjs.map(s=>s.code);
   const subjs=allSubjs.filter(s=>selCodes.includes(s.code));
   if(!subjs.length){toast('請至少選擇一個科目');return;}
-  const sorted=[...subjs].sort((a,b)=>{const ea=(a.exam?-10:0),eb=(b.exam?-10:0);return((a.mastery||0)+ea)-((b.mastery||0)+eb);});
-  const days=['日','一','二','三','四','五','六'];
-  const colors=['var(--blus)','var(--grns)','var(--ambs)','var(--purs)','var(--reds)','var(--teals)'];
+  const sorted=[...subjs].sort((a,b)=>((a.mastery||0))-((b.mastery||0)));
+  const colors=['var(--blus)','var(--grns)','var(--ambs)','var(--purs)','var(--reds)','var(--teals)','var(--roses)'];
   const phases=['弱點診斷','重點學習','試卷衝刺','模擬考'];
-  let weekHtml='';
-  for(let w=0;w<Math.min(2,Math.ceil(daysLeft/7)||1);w++){
-    weekHtml+='<div style="font-size:12px;font-weight:700;color:var(--ink3);font-family:\'DM Mono\',monospace;margin:'+(w>0?'16px 0 8px':'0 0 8px')+'">'+(w===0?'本週':'第 '+(w+1)+' 週')+'</div><div class="sched-week">';
-    for(let d2=0;d2<7;d2++){
-      const dt=new Date(today);dt.setDate(dt.getDate()+w*7+d2);
-      const isToday=w===0&&d2===0;const dw=dt.getDay();
-      const isWE=dw===0||dw===6;
-      const subj=sorted[(w*7+d2)%sorted.length];
-      const phase=isWE?'複習':phases[Math.min(w,3)];
-      weekHtml+='<div class="sd'+(isToday?' today':'')+(subj?' has-t':'')+'" onclick="toast(\''+(dt.getMonth()+1)+'/'+dt.getDate()+'：'+(subj?subj.name:'')+' · '+phase+'\')">'
-        +'<div class="sd-lbl">'+days[dw]+'</div>'
-        +'<div class="sd-date">'+dt.getDate()+'</div>'
-        +(subj?'<div class="sd-task" style="background:'+colors[sorted.indexOf(subj)%colors.length]+';color:var(--ink2)">'+subj.name+'</div>':'')
-        +'<div class="sd-task" style="font-size:9px;color:var(--ink4)">'+phase+'</div>'
-        +'</div>';
-    }
-    weekHtml+='</div>';
+
+  if(subEl)subEl.textContent='統測倒數 '+daysLeft+' 天 · '+(schedDate.getMonth()+1)+'/'+(schedDate.getDate())+' · '+subjs.length+' 科';
+
+  // Calendar state
+  if(!window._schedViewMonth){
+    window._schedViewMonth=new Date(today.getFullYear(),today.getMonth(),1);
   }
-  const analysisRows=sorted.map((s,i)=>{
-    const rem=100-(s.mastery||0);
-    const pri=i===0?'🔴 最高':i===1?'🟠 次要':'🟢 維持';
-    const h=Math.ceil(rem*daysLeft/1000);
-    return '<tr style="border-bottom:1px solid var(--bd)">'
-      +'<td style="padding:8px 10px;font-weight:700;font-family:\'Noto Serif TC\',serif">'+s.name+'</td>'
-      +'<td style="padding:8px 10px;font-family:\'DM Mono\',monospace;font-size:12px;text-align:center">'+(s.mastery||0)+'%</td>'
-      +'<td style="padding:8px 10px;font-size:12px">'+pri+'</td>'
-      +'<td style="padding:8px 10px;font-size:11px;color:var(--ink3)">'+(s.exam?'考科':'非考科')+'，需補強 '+rem+'%</td>'
-      +'<td style="padding:8px 10px;font-family:\'DM Mono\',monospace;font-size:12px;text-align:center">'+h+'h/週</td>'
-      +'</tr>';
-  }).join('');
-  document.getElementById('sched-sub').textContent='統測倒數 '+daysLeft+' 天 · '+(schedDate.getMonth()+1)+'/'+schedDate.getDate()+' · '+dailyH+'h/天 · '+subjs.length+' 科';
-  document.getElementById('sched-content').innerHTML=weekHtml
-    +'<div class="card" style="margin-bottom:12px"><div class="ct">AI 交叉分析排程依據 <span class="ct-sub">依掌握度 × 考試重要性</span></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="border-bottom:2px solid var(--bd);background:var(--surf2)"><th style="padding:8px 10px;text-align:left">科目</th><th style="padding:8px 10px;text-align:center">掌握度</th><th style="padding:8px 10px;text-align:left">優先度</th><th style="padding:8px 10px;text-align:left">AI 分析</th><th style="padding:8px 10px;text-align:center">建議</th></tr></thead><tbody>'+analysisRows+'</tbody></table></div></div>'
-    +'<div class="card"><div class="ct">AI 排程邏輯</div><div style="font-size:13px;color:var(--ink2);line-height:1.85"><strong>弱點優先</strong>：掌握度最低的科目排在精力最好的時段。<br><strong>交叉安排</strong>：相關科目間隔一天，避免記憶干擾。<br><strong>週末複習</strong>：週六間隔複習，週日模擬試卷。<br><strong>考前 2 週</strong>：全面切換為模擬考模式。</div></div>';
+
+  function getTaskForDate(dt){
+    const diff=Math.round((dt-today)/86400000);
+    if(diff<0||diff>Math.round((schedDate-today)/86400000)+30)return null;
+    const dw=dt.getDay();
+    const weekIdx=Math.floor(diff/7);
+    const isWE=dw===0||dw===6;
+    const phase=phases[Math.min(Math.floor(weekIdx/Math.max(1,Math.ceil(daysLeft/28))*4),3)];
+    const subj=sorted[diff%sorted.length];
+    return {subj,phase:isWE?'複習':phase,color:colors[sorted.indexOf(subj)%colors.length]};
+  }
+
+  function renderCal(){
+    const vm=window._schedViewMonth;
+    const y=vm.getFullYear(),m=vm.getMonth();
+    const firstDay=new Date(y,m,1);
+    const lastDay=new Date(y,m+1,0);
+    const startDow=firstDay.getDay();
+    const dayNames=['日','一','二','三','四','五','六'];
+    const minDate=new Date(today.getFullYear(),today.getMonth(),1);
+    const maxDate=new Date(today.getFullYear()+3,today.getMonth(),1);
+
+    let html='';
+    // Calendar header
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">';
+    html+='<button onclick="schedNavMonth(-1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)"'+(vm<=minDate?' disabled style="opacity:.3"':'')+'>‹</button>';
+    html+='<div style="font-family:serif;font-size:20px;font-weight:700">'+y+' 年 '+(m+1)+' 月</div>';
+    html+='<button onclick="schedNavMonth(1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)"'+(vm>=maxDate?' disabled style="opacity:.3"':'')+'>›</button>';
+    html+='</div>';
+
+    // Day headers
+    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">';
+    dayNames.forEach((d,i)=>{
+      const color=i===0?'var(--red)':i===6?'#2563a8':'var(--ink3)';
+      html+='<div style="text-align:center;font-size:13px;font-weight:700;color:'+color+';padding:6px 0">'+d+'</div>';
+    });
+    html+='</div>';
+
+    // Day cells
+    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
+    // Empty cells before first day
+    for(let i=0;i<startDow;i++){html+='<div></div>';}
+    // Day cells
+    for(let d=1;d<=lastDay.getDate();d++){
+      const dt=new Date(y,m,d);
+      const isToday=dt.toDateString()===today.toDateString();
+      const isExam=dt.toDateString()===schedDate.toDateString();
+      const dw=dt.getDay();
+      const task=getTaskForDate(dt);
+      const isSun=dw===0,isSat=dw===6;
+      const textColor=isSun?'var(--red)':isSat?'#2563a8':'var(--ink)';
+
+      html+='<div style="border-radius:10px;padding:6px 5px;min-height:72px;background:'+(isToday?'var(--grns)':isExam?'var(--reds)':'var(--surf)')+';border:1.5px solid '+(isToday?'var(--grn)':isExam?'#c03030':task?'var(--bd2)':'var(--bd)')+';cursor:'+(task?'pointer':'default')+';position:relative" '+(task?'onclick="toast(\''+(m+1)+'/'+d+'：'+task.subj.name+' · '+task.phase+'\')"':'')+'>';
+      // Date number
+      html+='<div style="font-size:15px;font-weight:700;color:'+(isExam?'#c03030':isToday?'var(--grn)':textColor)+';margin-bottom:3px">'+d+(isExam?' 📌':'')+( isToday?' ✦':'')+' </div>';
+      // Task
+      if(task){
+        html+='<div style="font-size:11px;padding:2px 5px;border-radius:5px;background:'+task.color+';color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px">'+task.subj.name+'</div>';
+        html+='<div style="font-size:10px;color:var(--ink4)">'+task.phase+'</div>';
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+
+    // Legend
+    html+='<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:14px;color:var(--ink3)">';
+    html+='<span>📌 統測日期</span><span>✦ 今天</span>';
+    sorted.slice(0,4).forEach((s,i)=>{html+='<span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+colors[i%colors.length]+';margin-right:4px"></span>'+s.name+'</span>';});
+    html+='</div>';
+
+    contentEl.innerHTML=html;
+  }
+
+  window.schedNavMonth=function(dir){
+    const vm=window._schedViewMonth;
+    const newM=new Date(vm.getFullYear(),vm.getMonth()+dir,1);
+    const minDate=new Date(today.getFullYear(),today.getMonth(),1);
+    const maxDate=new Date(today.getFullYear()+3,today.getMonth(),1);
+    if(newM>=minDate&&newM<=maxDate){window._schedViewMonth=newM;renderCal();}
+  };
+
+  renderCal();
   buildDash();
 }
 
@@ -2431,6 +2518,60 @@ function addUpsellToCart(){
   updateCartBar();
   closeModal('upsell-modal');
 }
+
+// ── SCHED ANALYSIS PANEL ──
+function toggleSchedAnalysis(){
+  const panel=document.getElementById('sched-analysis-panel');
+  const btn=document.getElementById('sched-analysis-btn');
+  if(!panel)return;
+  const isOpen=panel.style.display!=='none';
+  if(isOpen){
+    panel.style.display='none';
+    if(btn){btn.style.background='var(--surf2)';btn.style.color='var(--ink2)';}
+    return;
+  }
+  // Build analysis content
+  if(!curUser||!schedDate){panel.style.display='none';return;}
+  const today=new Date();today.setHours(0,0,0,0);
+  const daysLeft=Math.max(0,Math.round((schedDate-today)/86400000));
+  const allSubjs=getUserSubjs(curUser);
+  const selCodes=schedSel||allSubjs.map(s=>s.code);
+  const subjs=allSubjs.filter(s=>selCodes.includes(s.code));
+  const sorted=[...subjs].sort((a,b)=>((a.mastery||0))-((b.mastery||0)));
+  const phases=['弱點診斷','重點學習','試卷衝刺','模擬考'];
+  const analysisRows=sorted.map((s,i)=>{
+    const rem=100-(s.mastery||0);
+    const pri=i===0?'🔴 最高':i===1?'🟠 次要':'🟢 維持';
+    const h=Math.ceil(rem*daysLeft/1000);
+    return '<tr style="border-bottom:1px solid var(--bd)">'
+      +'<td style="padding:9px 12px;font-weight:700;font-size:14px">'+s.name+'</td>'
+      +'<td style="padding:9px 12px;font-size:14px;text-align:center">'+(s.mastery||0)+'%</td>'
+      +'<td style="padding:9px 12px;font-size:14px">'+pri+'</td>'
+      +'<td style="padding:9px 12px;font-size:13px;color:var(--ink3)">'+(s.exam?'考科':'非考科')+'，需補強 '+rem+'%</td>'
+      +'<td style="padding:9px 12px;font-size:14px;text-align:center">'+h+'h/週</td>'
+      +'</tr>';
+  }).join('');
+  panel.innerHTML='<div class="card" style="margin-bottom:12px">'
+    +'<div class="ct">AI 交叉分析排程依據 <span class="ct-sub">依掌握度 × 考試重要性</span></div>'
+    +'<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px">'
+    +'<thead><tr style="border-bottom:2px solid var(--bd);background:var(--surf2)">'
+    +'<th style="padding:9px 12px;text-align:left">科目</th>'
+    +'<th style="padding:9px 12px;text-align:center">掌握度</th>'
+    +'<th style="padding:9px 12px;text-align:left">優先度</th>'
+    +'<th style="padding:9px 12px;text-align:left">AI 分析</th>'
+    +'<th style="padding:9px 12px;text-align:center">建議</th>'
+    +'</tr></thead><tbody>'+analysisRows+'</tbody></table></div></div>'
+    +'<div class="card"><div class="ct">AI 排程邏輯</div>'
+    +'<div style="font-size:14px;color:var(--ink2);line-height:1.85">'
+    +'<strong>弱點優先</strong>：掌握度最低的科目排在精力最好的時段。<br>'
+    +'<strong>交叉安排</strong>：相關科目間隔一天，避免記憶干擾。<br>'
+    +'<strong>週末複習</strong>：週六間隔複習，週日模擬試卷。<br>'
+    +'<strong>考前 2 週</strong>：全面切換為模擬考模式。'
+    +'</div></div>';
+  panel.style.display='block';
+  if(btn){btn.style.background='var(--grns)';btn.style.color='var(--grn)';}
+}
+
 </script>
 
 <nav class="side-toc" style="display:none"></nav>
