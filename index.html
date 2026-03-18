@@ -671,6 +671,17 @@ footer.l-footer ~ *{background:#0d1117;}
   #nav-more{display:none !important;}
 }
 
+
+.sched-mode-card{
+  background:var(--surf);border:1.5px solid var(--bd);border-radius:14px;
+  padding:18px 20px;cursor:pointer;transition:all .18s;
+}
+.sched-mode-card:hover{border-color:var(--grn);background:var(--grns);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.sched-tag{
+  font-size:11px;padding:3px 9px;border-radius:12px;
+  background:var(--surf2);color:var(--ink3);border:1px solid var(--bd);
+}
+
 </style>
 </head>
 <body>
@@ -688,6 +699,7 @@ footer.l-footer ~ *{background:#0d1117;}
     </div>
     <button class="l-lnk" id="nav-orders" onclick="gotoPage('orders')">我的訂單</button>
     <button class="l-lnk" id="nav-faq" onclick="gotoPage('faq')">常見問題</button>
+    <button class="l-lnk" id="nav-obs" onclick="gotoObs()" style="display:none;color:var(--blu)">🏫 觀察區</button>
 
   </div>
   <div class="l-right">
@@ -837,7 +849,7 @@ footer.l-footer ~ *{background:#0d1117;}
   <div class="lf-brand">
     <div style="font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">AI 知識導航員</div>
     <div style="font-size:13px;color:rgba(255,255,255,.42);margin-bottom:14px">四技二專統測 AI 備考平台</div>
-    <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:300px">由勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
+    <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:300px">由 MOSME 勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
   </div>
   <div class="lf-col">
     <div class="lf-col-title">MOSME 平台</div>
@@ -902,6 +914,14 @@ footer.l-footer ~ *{background:#0d1117;}
             <div class="lcu-sub">體驗 3 題，超過 10 字馬賽克</div>
           </div>
           <span class="uo-tier" style="background:var(--surf3);color:var(--ink3)">免費</span>
+        </button>
+        <button class="lc-user-card" onclick="loginAs('E')" style="border-color:#1a5276">
+          <div class="lcu-av" style="background:linear-gradient(135deg,#1a5276,#2471a3)">師</div>
+          <div class="lcu-info">
+            <div class="lcu-name">林老師</div>
+            <div class="lcu-sub">景義工商 · 商業管理群觀察區</div>
+          </div>
+          <span class="uo-tier" style="background:#d6eaf8;color:#1a5276">教師</span>
         </button>
       </div>
     </div>
@@ -1059,18 +1079,24 @@ footer.l-footer ~ *{background:#0d1117;}
     <!-- SCHEDULE -->
     <div class="view scroll" id="av-sched">
       <div class="sched-body"><div class="sched-inner">
+        <!-- Header -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-          <div><div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;margin-bottom:2px">課程表</div><div style="font-size:13px;color:var(--ink3)" id="sched-sub">尚未設定考試日期</div></div>
+          <div>
+            <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;margin-bottom:2px">AI 課程排程</div>
+            <div style="font-size:13px;color:var(--ink3)" id="sched-sub">讓 AI 幫你安排每一天</div>
+          </div>
           <div style="display:flex;gap:8px;align-items:center">
+            <button id="sched-setup-btn" onclick="openSchedModal()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer">排課程</button>
             <button id="sched-analysis-btn" onclick="toggleSchedAnalysis()" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--bd2);background:var(--surf2);color:var(--ink2);font-size:13px;cursor:pointer">📊 AI 分析</button>
-            <button style="padding:8px 18px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer" onclick="if(schedDate){window._schedViewMonth=null;buildSchedFull();}else openSchedModal()">AI 重新排程</button>
+            
+            <button id="sched-regen-btn" onclick="regenSched()" style="display:none;padding:8px 18px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer">AI 重新排程</button>
           </div>
         </div>
         <div id="sched-analysis-panel" style="display:none;margin-bottom:16px"></div>
-        <div id="sched-content"><div style="text-align:center;padding:60px 20px;color:var(--ink3)"><div style="font-size:52px;margin-bottom:12px">📅</div><div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700;margin-bottom:8px">尚未生成課程表</div><div style="font-size:14px;margin-bottom:20px">設定考試日期，AI 幫你排好備考課程</div><button style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer" onclick="openSchedModal()">設定日期 →</button></div></div>
+        <!-- Main content: AI chat setup OR calendar -->
+        <div id="sched-content"></div>
       </div></div>
     </div>
-
     <!-- DASHBOARD -->
     <div class="view scroll" id="av-dash">
       <div class="dash-body"><div class="d-inner" id="dash-inner"></div></div>
@@ -1129,6 +1155,14 @@ footer.l-footer ~ *{background:#0d1117;}
     <div style="font-size:14px;color:var(--ink3);margin-bottom:28px">方案定價、付款方式、功能說明</div>
     <div id="faq-page-body"></div>
   </div>
+
+</div>
+
+<!-- OBSERVER SCREEN -->
+<div id="screen-obs" class="screen">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px)">
+    <div id="obs-inner"></div>
+  </div>
 </div>
 
 
@@ -1158,6 +1192,7 @@ footer.l-footer ~ *{background:#0d1117;}
 function safeSet(id,prop,val){const el=document.getElementById(id);if(el)el[prop]=val;}
 function safeStyle(id,prop,val){const el=document.getElementById(id);if(el)el.style[prop]=val;}
 let curUser=null, curSubj=null, curPsn='guide';
+let quizHistory=[]; // [{date,subj,total,score,pct,wrong:[{q,userAns,correctAns}]}]
 let currentPage='landing', faqPageBuilt=false;
 let quizCount=10, quizMode='adaptive', dailyH='1';
 let rIdx=0, step=0, uName='', abilityScores={}, quizQs=[], schedDate=null, schedSel=null;
@@ -1354,9 +1389,87 @@ const USERS={
   A:{name:'陳同學',groupIds:['03'],tier:'single',color:'#1f6b18',xpPct:72,xpLabel:'Lv.6 · 1,820 XP',streak:5,owned:['E1','E2a'],books:{'E1':0,'E2a':0},activeSubj:'E1'},
   B:{name:'林同學',groupIds:['09'],tier:'pack',color:'#8a4e00',xpPct:58,xpLabel:'Lv.5 · 1,340 XP',streak:8,owned:['B1a','B1b','B1c','B2a','B2b','COM_CH','COM_EN','COM_MB'],books:{'B1a':0,'B2a':0},activeSubj:'B1a'},
   C:{name:'王同學',groupIds:['09','07'],tier:'multi-pack',color:'#5a2498',xpPct:45,xpLabel:'Lv.4 · 980 XP',streak:3,owned:['B1a','B1b','B1c','B2a','B2b','De1','De2a','De2b','De2c','COM_CH','COM_EN','COM_MB'],books:{'B1a':0,'De1':0},activeSubj:'B1a'},
-  D:{name:'試用同學',groupIds:[],tier:'trial',color:'#5a2498',xpPct:0,xpLabel:'試用中',streak:0,owned:[],books:{},activeSubj:null},
-  D:{name:'試用同學',groupIds:[],tier:'trial',color:'#607080',xpPct:0,xpLabel:'試用中',streak:0,owned:[],books:{},activeSubj:null}
+  D:{name:'試用同學',groupIds:[],tier:'trial',color:'#607080',xpPct:0,xpLabel:'試用中',streak:0,owned:[],books:{},activeSubj:null},
+  E:{name:'林老師',role:'teacher',color:'#1a5276',classCode:'MOSME-JYIC-0001',groupIds:['09'],tier:'teacher',owned:[],books:{},activeSubj:null,examDate:null}
 };
+
+// ── TEACHER OBSERVATION DATA ──
+const CLASS_DATA={
+  'MOSME-JYIC-0001':{
+    school:'景義工商',
+    grade:'三年二班',
+    groupIds:['09'],
+    subjects:['B1a','B1b','B1c','B2a','B2b','COM_CH','COM_EN','COM_MB'],
+    teachers:['E'],
+    label:'商業管理群 · 景義工商'
+  }
+};
+
+const STUDENTS=(function(){
+  const names=['張小明','李雅婷','王建宏','陳淑芬','林志偉','黃美玲','吳宗翰','蔡依玲',
+    '劉家豪','鄭雅文','楊承翰','賴宜蓁','許哲維','謝欣儀','徐子豪','洪佳琪','游博凱',
+    '蘇雅涵','潘冠廷','邱筱芸','范宏偉','廖怡婷','曾建志','莊雅萍','簡志遠'];
+  const subjects=['B1a','B1b','B1c','B2a','B2b','COM_CH','COM_EN','COM_MB'];
+  const subjectNames={'B1a':'商業概論','B1b':'數位科技概論','B1c':'數位科技應用',
+    'B2a':'會計學','B2b':'經濟學','COM_CH':'國文','COM_EN':'英文','COM_MB':'數學(B)'};
+  const now=Date.now();
+
+  return names.map(function(name,i){
+    // Simulate varied learning patterns
+    const activityLevel=i%4; // 0=active, 1=medium, 2=low, 3=inactive
+    const daysAgo=[0,1,2,3,4,5,7,10,14,21,30][Math.min(i%11,10)];
+    const sessionsPerWeek=[5,4,6,3,2,1,0,5,3,2,1][i%11];
+    const avgScore=Math.max(45,Math.min(95,60+Math.floor(Math.sin(i)*25)));
+
+    // Per-subject mastery (varies by student)
+    const mastery={};
+    subjects.forEach(function(code,j){
+      mastery[code]=Math.max(10,Math.min(95,avgScore+Math.floor(Math.cos(i+j)*20)));
+    });
+
+    // Weakest subjects (lowest mastery)
+    const weakSubjs=subjects.slice().sort(function(a,b){return mastery[a]-mastery[b];}).slice(0,2);
+
+    // Recent quiz records
+    const quizCount=Math.max(0,8-i%9);
+    const recentQuizzes=Array.from({length:quizCount},function(_,k){
+      const subj=subjects[k%subjects.length];
+      const pct=Math.max(40,Math.min(98,mastery[subj]+Math.floor(Math.random()*20-10)));
+      return {
+        date:new Date(now-(k+1)*2.3*86400000),
+        subjName:subjectNames[subj],
+        pct:pct,score:Math.round(pct/10),total:10
+      };
+    });
+
+    // Usage frequency (sessions in last 30 days)
+    const totalSessions=Math.max(0,30-i*1.1|0);
+    const lastLogin=new Date(now-daysAgo*86400000);
+
+    // Status
+    const status=daysAgo===0?'今天':daysAgo<=3?'活躍':daysAgo<=7?'正常':daysAgo<=14?'偶爾':daysAgo<=21?'低度':'未活躍';
+    const statusColor=daysAgo===0?'var(--grn)':daysAgo<=3?'var(--grn)':daysAgo<=7?'var(--amb)':daysAgo<=14?'var(--amb)':'var(--red)';
+
+    return {
+      id:'STU'+String(i+1).padStart(3,'0'),
+      name:name,
+      classCode:'MOSME-JYIC-0001',
+      mastery:mastery,
+      weakSubjs:weakSubjs,
+      avgScore:avgScore,
+      totalSessions:totalSessions,
+      sessionsPerWeek:sessionsPerWeek,
+      lastLogin:lastLogin,
+      daysAgo:daysAgo,
+      status:status,
+      statusColor:statusColor,
+      recentQuizzes:recentQuizzes,
+      aiInteractions:Math.max(0,totalSessions*3),
+      streak:Math.max(0,5-daysAgo),
+    };
+  });
+})();
+
 // ── CART ──
 let cart={};
 function toggleSubjCart(code,name,gid,gname,el){
@@ -1454,7 +1567,7 @@ function checkoutCart(){
       +summaryRows
       +'<div id="coupon-section" style="margin:16px 0">'
       +'<div style="font-size:13px;color:var(--ink3);margin-bottom:6px">學校抵用序號</div>'
-      +'<div style="display:flex;gap:8px"><input id="coupon-inp" placeholder="XXXX-XXXX-XXXX-XXXX" style="flex:1;padding:10px 13px;border-radius:8px;border:1.5px solid var(--bd);background:var(--surf2);font-size:14px;color:var(--ink);outline:none">'
+      +'<div style="display:flex;gap:8px"><input id="coupon-inp" placeholder="MOSME-XXXX-XXXX" style="flex:1;padding:10px 13px;border-radius:8px;border:1.5px solid var(--bd);background:var(--surf2);font-size:14px;color:var(--ink);outline:none">'
       +'<button onclick="applyCoupon()" style="padding:10px 16px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer">套用</button></div></div>'
       +'<div style="font-size:12px;color:var(--ink4);margin-bottom:14px">選擇付款方式（由藍新金流處理）</div>'
       +'<button onclick="submitPurchaseWith(&quot;apple&quot;)" style="width:100%;padding:13px;border-radius:10px;background:#000;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px">🍎 Apple Pay</button>'
@@ -1896,9 +2009,18 @@ function loginAs(id){
   updateNavAvatar();
   
   const tocL=document.getElementById('toc-landing');const tocA=document.getElementById('toc-app');if(tocL)tocL.style.display='none';if(tocA)tocA.style.display='flex';
-  startOnboarding();
   lcShowUser(curUser);
   closeModal('login-modal');
+  _injectFakeQuizHistory(id);
+  // Show/hide observer tab based on role
+  var obsTab=document.getElementById('at-obs');
+  var obsTab=document.getElementById('nav-obs');
+  if(obsTab)obsTab.style.display=(curUser&&curUser.role==='teacher')?'':'none';
+  if(curUser&&curUser.role==='teacher'){
+    gotoPage('obs');
+  } else {
+    startOnboarding();
+  }
 }
 function logout(){
   document.getElementById('screen-app').classList.remove('on');
@@ -1912,11 +2034,13 @@ function logout(){
 
 // ═══ TABS ═══
 function switchTab(t){
-  ['chat','quiz','sched','dash','subjs','orders'].forEach(v=>{
+  ['chat','quiz','sched','dash','subjs','orders','obs'].forEach(v=>{
     document.getElementById('av-'+v)?.classList.toggle('on',v===t);
     document.getElementById('at-'+v)?.classList.toggle('on',v===t);
   });
   if(t==='dash'&&curUser)buildDash();
+  if(t==='quiz')initQuizTab();
+  if(t==='obs')buildObsView();
 }
 
 // ═══ BOOK BAR ═══
@@ -2092,15 +2216,25 @@ function finishAbility(){
   setTimeout(()=>{
     appendAI('診斷完成！✦\n\n'+(summary||'各科程度已記錄')+'\n\nAI 已記錄你的學習起點。最後一步——你幾月幾號參加統測？告訴我，我幫你生成個人化備考課程表。','診斷完成');
     document.getElementById('app-ci').placeholder='例如：2026/05/23';
+    // If user came from sched analysis flow, go back to sched
+    if(window._postQuizGoSched){
+      window._postQuizGoSched=false;
+      setTimeout(function(){switchTab('sched');_startSchedChat();},800);
+    }
   },700);
 }
-function parseDate(str){
-  let m=str.match(/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
-  if(m)return new Date(+m[1],+m[2]-1,+m[3]);
-  m=str.match(/(\d{1,2})[月\/](\d{1,2})/);
-  if(m)return new Date(new Date().getFullYear(),+m[1]-1,+m[2]);
+
+function parseDate(s){
+  if(!s)return null;
+  // Normalize full-width numbers to half-width
+  s=s.replace(/[０-９]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);});
+  s=s.replace(/[/\.\-年月]/g,'/').replace(/[日號]/g,'').trim();
+  const parts=s.split('/').map(Number).filter(Boolean);
+  if(parts.length===3){const d=new Date(parts[0],parts[1]-1,parts[2]);if(!isNaN(d))return d;}
+  if(parts.length===2){const d=new Date(new Date().getFullYear(),parts[0]-1,parts[1]);if(!isNaN(d))return d;}
   return null;
 }
+
 function postOnboard(i){
   const t=['先出診斷試卷','帶我從頭開始學','看課程排程','告訴我統測考什麼'];
   appendU(t[i]||'開始');
@@ -2164,7 +2298,7 @@ function handleChat(raw){
   if(isQuiz){
     setTimeout(()=>{appendAI('好！我幫你生成試卷。','');openModal('quiz-modal');},500);
   } else if(isSched){
-    setTimeout(()=>{appendAI('好！切換到課程表——','');switchTab('sched');},500);
+    setTimeout(()=>{appendAI('好！我來幫你安排課程，切換到課程表了～','');openSchedModal();},500);
   } else if(step==='ask_date'){
     // Only parse date if it looks like a date
     const d=parseDate(raw);
@@ -2282,6 +2416,7 @@ function selectOpt(i){
 function submitAns(){
   if(quizSel===null){toast('請選擇一個答案');return;}
   const q=quizQs[quizI];const ok=quizSel===q.ans;
+  if(!ok){if(!quizQs[quizI]._wrong)quizQs[quizI]._wrong=true;if(!window._wrongThisRound)window._wrongThisRound=[];window._wrongThisRound.push({q:q.q,opts:q.opts,userAns:quizSel,correctAns:q.ans,exp:q.exp,code:q.code});}
   document.querySelectorAll('.q-opt').forEach((el,j)=>{
     if(j===q.ans)el.classList.add('ok');
     else if(j===quizSel&&!ok)el.classList.add('ng');
@@ -2297,7 +2432,59 @@ function renderResult(){
   const total=quizQs.length;const pct=total?Math.round(quizScore/total*100):0;
   const color=pct>=90?'var(--grn)':pct>=75?'var(--blu)':pct>=60?'var(--amb)':'var(--red)';
   const grade=pct>=90?'A 優秀':pct>=75?'B 良好':pct>=60?'C 及格':'D 需加強';
+  const wrong=window._wrongThisRound||[];
+  window._wrongThisRound=[];
+
+  // Save to history
+  const s=getSubj(curSubj);
+  const record={
+    date:new Date(),
+    subjCode:curSubj,
+    subjName:s?s.name:'未知科目',
+    total,score:quizScore,pct,
+    wrong:[...wrong],
+    mode:quizMode
+  };
+  quizHistory.unshift(record);
+  if(quizHistory.length>20)quizHistory.pop();
+
+  // Update mastery on subject
+  if(s){s.mastery=Math.max(s.mastery||0,Math.min(pct,95));}
+
   document.getElementById('qpf').style.width='100%';
+
+  // Wrong questions HTML
+  let wrongHtml='';
+  if(wrong.length>0){
+    wrongHtml='<div style="margin-top:16px">'
+      +'<div style="font-size:14px;font-weight:700;margin-bottom:10px;color:var(--ink)">錯題紀錄（'+wrong.length+' 題）</div>'
+      +wrong.map(function(w,i){
+        return '<div style="background:var(--surf2);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:8px;font-size:13px">'
+          +'<div style="font-weight:700;color:var(--ink);margin-bottom:6px">Q'+(i+1)+'：'+w.q+'</div>'
+          +(w.opts?w.opts.map(function(o,j){
+            const isCorrect=j===w.correctAns;const isUser=j===w.userAns;
+            return '<div style="padding:3px 8px;border-radius:5px;margin-bottom:3px;background:'+(isCorrect?'var(--grns)':isUser?'var(--reds)':'transparent')+';color:'+(isCorrect?'var(--grn)':isUser?'var(--red)':'var(--ink3)')+'">'+String.fromCharCode(65+j)+'．'+o+(isCorrect?' ✓':'')+(isUser&&!isCorrect?' ✗':'')+'</div>';
+          }).join(''):'')
+          +(w.exp?'<div style="margin-top:6px;padding:6px 10px;background:var(--blus);border-radius:6px;color:var(--ink2);font-size:12px">解析：'+w.exp+'</div>':'')
+          +'</div>';
+      }).join('')
+      +'</div>';
+  }
+
+  // AI weakness analysis
+  const weakCodes={};
+  wrong.forEach(function(w){weakCodes[w.code]=(weakCodes[w.code]||0)+1;});
+  const weakList=Object.entries(weakCodes).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  let aiAnalysis='';
+  if(pct>=75){
+    aiAnalysis='整體表現良好！你在這份試卷表現穩定，繼續保持。';
+  } else if(wrong.length>0){
+    const topWeak=weakList.map(function(w){const s=getSubj(w[0]);return s?s.name:w[0];}).join('、');
+    aiAnalysis='AI 偵測到弱點集中在：'+topWeak+'。建議優先複習這些知識點，下份試卷會加強出題。';
+  } else {
+    aiAnalysis='部分知識點需加強，AI 已記錄，下次試卷會優先補強。';
+  }
+
   document.getElementById('quiz-inner').innerHTML='<div class="qr">'
     +'<div class="qr-s" style="color:'+color+'">'+pct+'%</div>'
     +'<div class="qr-g">'+grade+'</div>'
@@ -2308,48 +2495,136 @@ function renderResult(){
     +'<div class="qr-stat"><div class="qr-sn" style="color:var(--red)">'+(total-quizScore)+'</div><div style="font-size:11px;color:var(--ink3)">答錯</div></div>'
     +'<div class="qr-stat"><div class="qr-sn">'+pct+'%</div><div style="font-size:11px;color:var(--ink3)">正確率</div></div></div>'
     +'<div style="font-size:13px;color:var(--ink2);line-height:1.75;background:var(--surf2);padding:12px;border-radius:8px;margin:10px 0;text-align:left">'
-    +'<div style="font-weight:700;font-family:\'Noto Serif TC\',serif;margin-bottom:4px">AI 分析建議</div>'
-    +(pct>=75?'整體表現良好！繼續挑戰更難的題型。':'部分知識點需加強，AI 已記錄弱點，下次試卷會優先出這些題型。')
+    +'<div style="font-weight:700;margin-bottom:4px">✦ AI 弱點分析</div>'+aiAnalysis
     +'</div>'
-    +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+    +wrongHtml
+    +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">'
     +'<button style="padding:10px 24px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer" onclick="startQuiz()">再做一份</button>'
+    +'<button style="padding:10px 18px;border-radius:9px;border:1.5px solid var(--bd);background:transparent;color:var(--ink2);font-size:13px;cursor:pointer" onclick="showQuizHistory()">查看歷史試卷</button>'
     +'<button style="padding:10px 18px;border-radius:9px;border:1.5px solid var(--bd);background:transparent;color:var(--ink2);font-size:13px;cursor:pointer" onclick="switchTab(\'chat\')">和 AI 討論弱點</button>'
     +'</div></div>';
+
+  if(window._postQuizGoSched){
+    window._postQuizGoSched=false;
+    setTimeout(function(){switchTab('sched');_startSchedChat();},1500);
+  }
+}
+
+function showQuizHistory(){
+  const qi=document.getElementById('quiz-inner');
+  if(!qi)return;
+
+  // Null-safe history
+  const hist=(quizHistory||[]).filter(function(r){return r&&r.subjName&&r.pct!=null;});
+
+  if(!hist.length){
+    qi.innerHTML='<div style="text-align:center;padding:48px 20px">'
+      +'<div style="font-size:40px;margin-bottom:12px">📝</div>'
+      +'<div style="font-family:serif;font-size:18px;font-weight:700;margin-bottom:8px">還沒有試卷紀錄</div>'
+      +'<div style="font-size:14px;color:var(--ink3);margin-bottom:20px">完成第一份試卷，AI 開始分析你的弱點</div>'
+      +'<button onclick="openModal(\'quiz-modal\')" style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer">+ 新增試卷</button>'
+      +'</div>';
+    return;
+  }
+
+  // Group by subject
+  const subjectStats={};
+  hist.forEach(function(r){
+    if(!subjectStats[r.subjName])subjectStats[r.subjName]={name:r.subjName,pcts:[],allWrong:[],sessions:0};
+    const st=subjectStats[r.subjName];
+    st.sessions++;st.pcts.push(r.pct||0);
+    (r.wrong||[]).forEach(function(w){if(w&&w.q)st.allWrong.push(w.q);});
+  });
+  Object.values(subjectStats).forEach(function(st){
+    st.avgPct=Math.round(st.pcts.reduce(function(a,b){return a+b;},0)/st.pcts.length);
+    const last=st.pcts[0],first=st.pcts[st.pcts.length-1];
+    st.trend=st.pcts.length>1?(last>first?'↑ 進步中':last<first?'↓ 需注意':'→ 持平'):'初次測驗';
+    st.trendColor=st.trend.startsWith('↑')?'var(--grn)':st.trend.startsWith('↓')?'var(--red)':'var(--ink3)';
+  });
+
+  let html='<div style="max-width:640px">';
+
+  // Header
+  html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">'
+    +'<div style="font-family:serif;font-size:20px;font-weight:800">試卷紀錄 & 弱點分析</div>'
+    +'<button onclick="openModal(\'quiz-modal\')" style="padding:8px 18px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer">+ 新增試卷</button>'
+    +'</div>';
+
+  // Per-subject analysis cards
+  html+='<div style="margin-bottom:20px">';
+  html+='<div style="font-size:13px;font-weight:700;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">科目分析</div>';
+  Object.values(subjectStats).forEach(function(st){
+    html+='<div style="background:var(--surf);border:1.5px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:10px">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">'
+        +'<div style="font-size:15px;font-weight:700">'+st.name+'</div>'
+        +'<div style="text-align:right">'
+          +'<div style="font-size:18px;font-weight:800;color:var(--grn)">'+st.avgPct+'%</div>'
+          +'<div style="font-size:12px;color:'+st.trendColor+'">'+st.trend+'</div>'
+        +'</div>'
+      +'</div>'
+      // Mini trend chart
+      +'<div style="display:flex;gap:3px;align-items:flex-end;height:32px;margin-bottom:8px">'
+      +st.pcts.slice().reverse().map(function(p){
+        const h=Math.max(4,Math.round(p/100*32));
+        const col=p>=75?'var(--grn)':p>=60?'var(--amb)':'var(--red)';
+        return '<div style="flex:1;height:'+h+'px;background:'+col+';border-radius:3px 3px 0 0;min-width:6px" title="'+p+'%"></div>';
+      }).join('')
+      +'</div>'
+      // Common wrong patterns
+      +(st.allWrong.length>0
+        ?'<div style="font-size:12px;color:var(--red);background:var(--reds);padding:5px 9px;border-radius:6px">⚠ 常錯：'+[...new Set(st.allWrong)].slice(0,2).map(function(q){return (q||'').slice(0,14)+(q&&q.length>14?'…':'');}).join('　／　')+'</div>'
+        :'<div style="font-size:12px;color:var(--grn)">✓ 目前無明顯錯題</div>')
+      +'</div>';
+  });
+  html+='</div>';
+
+  // Session list
+  html+='<div style="font-size:13px;font-weight:700;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">最近試卷</div>';
+  hist.slice(0,10).forEach(function(r,i){
+    const col=r.pct>=75?'var(--grn)':r.pct>=60?'var(--amb)':'var(--red)';
+    const dt=r.date?new Date(r.date):new Date();
+    const label=(dt.getMonth()+1)+'/'+(dt.getDate())+' '+dt.getHours()+':'+String(dt.getMinutes()).padStart(2,'0');
+    const wrongLen=(r.wrong||[]).length;
+    html+='<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)">'
+      +'<div style="width:44px;height:44px;border-radius:10px;background:'+col+';color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+r.pct+'%</div>'
+      +'<div style="flex:1;min-width:0">'
+        +'<div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+r.subjName+'</div>'
+        +'<div style="font-size:12px;color:var(--ink3)">'+label+' · 答對 '+r.score+'/'+r.total+'題'+(wrongLen?' · <span style="color:var(--red)">'+wrongLen+'題錯</span>':'')+'</div>'
+      +'</div>'
+      +(wrongLen>0?'<button onclick="showWrongDetail('+i+')" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:13px;cursor:pointer;flex-shrink:0">錯題</button>':'')
+      +'</div>';
+  });
+
+  html+='</div>';
+  qi.innerHTML=html;
+}
+
+function showWrongDetail(idx){
+  const r=quizHistory[idx];
+  if(!r||!r.wrong.length)return;
+  let html='<div style="max-width:600px">'
+    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:pointer" onclick="showQuizHistory()">'
+      +'<span style="color:var(--ink4)">‹ 返回</span>'
+    +'</div>'
+    +'<div style="font-size:18px;font-weight:700;margin-bottom:4px">'+r.subjName+' — 錯題詳解</div>'
+    +'<div style="font-size:13px;color:var(--ink3);margin-bottom:16px">'+(r.date.getMonth()+1)+'/'+(r.date.getDate())+' · '+r.pct+'%</div>';
+  r.wrong.forEach(function(w,i){
+    html+='<div style="background:var(--surf);border:1.5px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:10px">'
+      +'<div style="font-size:14px;font-weight:700;margin-bottom:8px">第'+(i+1)+'題：'+w.q+'</div>'
+      +(w.opts?w.opts.map(function(o,j){
+        const isC=j===w.correctAns,isU=j===w.userAns;
+        return '<div style="padding:6px 10px;border-radius:7px;margin-bottom:4px;background:'+(isC?'var(--grns)':isU?'var(--reds)':'var(--surf2)')+';color:'+(isC?'var(--grn)':isU?'var(--red)':'var(--ink2)')+'">'+String.fromCharCode(65+j)+'．'+o+(isC?' ✓':'')+(isU&&!isC?' ✗ 你的答案':'')+'</div>';
+      }).join(''):'')
+      +(w.exp?'<div style="margin-top:8px;padding:8px 12px;background:var(--blus);border-radius:8px;font-size:13px;color:var(--ink2)">📖 解析：'+w.exp+'</div>':'')
+      +'</div>';
+  });
+  html+='</div>';
+  document.getElementById('quiz-inner').innerHTML=html;
 }
 
 // ═══ SCHEDULE ═══
-function openSchedModal(){
-  buildSchedSubjSel();
-  openModal('sched-modal');
-}
-function buildSchedSubjSel(){
-  if(!curUser)return;
-  const subjs=getUserSubjs(curUser);
-  const multi=curUser.groupIds.length>1;
-  const sel=schedSel||subjs.map(s=>s.code);
-  let html='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">';
-  html+='<button style="padding:3px 10px;border-radius:14px;border:1px solid var(--bd);background:var(--surf2);font-size:11px;cursor:pointer;transition:all .15s" onclick="setSchedAll(true)" onmouseover="this.style.borderColor=\'var(--grn)\'" onmouseout="this.style.borderColor=\'var(--bd)\'">全選</button>';
-  html+='<button style="padding:3px 10px;border-radius:14px;border:1px solid var(--bd);background:var(--surf2);font-size:11px;cursor:pointer;transition:all .15s" onclick="setSchedAll(false)" onmouseover="this.style.borderColor=\'var(--red)\'" onmouseout="this.style.borderColor=\'var(--bd)\'">全取消</button>';
-  if(multi){
-    curUser.groupIds.forEach(gid=>{
-      const g=ALL_GROUPS.find(x=>x.id===gid);
-      html+='<button style="padding:3px 10px;border-radius:14px;border:1.5px solid '+(g?g.color:'var(--bd)')+';background:'+(g?g.bg:'var(--surf2)')+';font-size:11px;cursor:pointer;color:'+(g?g.color:'var(--ink2)')+'" onclick="setSchedGroup(\''+gid+'\')">'+( g?g.name:gid)+'</button>';
-    });
-  }
-  html+='</div><div style="display:flex;flex-direction:column;gap:5px">';
-  subjs.forEach(s=>{
-    const g=ALL_GROUPS.find(x=>x.id===s.groupId);
-    const checked=sel.includes(s.code);
-    html+='<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--bd);border-radius:8px;cursor:pointer;background:'+(checked?'var(--grns)':'var(--surf2)')+'" id="ssl-'+s.code+'">'
-      +'<input type="checkbox"'+(checked?' checked':'')+" onchange=\"toggleSchedSubj('"+s.code+"',this.checked)\" style=\"accent-color:var(--grn)\">"
-      +(multi&&g?'<span style="font-size:9px;font-family:\'DM Mono\',monospace;font-weight:700;padding:1px 5px;border-radius:3px;background:'+g.bg+';color:'+g.color+'">'+g.id+'</span>':'')
-      +'<span style="font-size:13px;font-family:\'Noto Serif TC\',serif;font-weight:700">'+s.name+'</span>'
-      +'<span style="margin-left:auto;font-size:11px;font-family:\'DM Mono\',monospace;color:var(--grn)">'+(s.mastery||0)+'%</span>'
-      +'</label>';
-  });
-  html+='</div>';
-  document.getElementById('sched-subj-sel').innerHTML=html;
-}
+
+
 function setSchedAll(v){
   const subjs=getUserSubjs(curUser);
   schedSel=v?subjs.map(s=>s.code):[];
@@ -2367,121 +2642,7 @@ function toggleSchedSubj(code,checked){
   const lbl=document.getElementById('ssl-'+code);
   if(lbl)lbl.style.background=checked?'var(--grns)':'var(--surf2)';
 }
-function generateSchedule(){
-  const inp=document.getElementById('exam-date-inp');
-  const d=parseDate(inp?inp.value:'');
-  if(!d){toast('請輸入正確的考試日期');return;}
-  schedDate=d;closeModal('sched-modal');switchTab('sched');buildSchedFull();toast('✓ AI 課程表已生成！');
-}
-function buildSchedFull(){
-  const contentEl=document.getElementById('sched-content');
-  const subEl=document.getElementById('sched-sub');
-  if(!schedDate){
-    contentEl.innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--ink3)"><div style="font-size:16px;margin-bottom:16px">尚未設定考試日期</div><button style="padding:10px 28px;border-radius:9px;border:none;background:var(--grn);color:#fff;font-size:15px;font-weight:700;cursor:pointer" onclick="openSchedModal()">設定日期 →</button></div>';
-    return;
-  }
-  const today=new Date();today.setHours(0,0,0,0);
-  const daysLeft=Math.max(0,Math.round((schedDate-today)/86400000));
-  const allSubjs=getUserSubjs(curUser);
-  const selCodes=schedSel||allSubjs.map(s=>s.code);
-  const subjs=allSubjs.filter(s=>selCodes.includes(s.code));
-  if(!subjs.length){toast('請至少選擇一個科目');return;}
-  const sorted=[...subjs].sort((a,b)=>((a.mastery||0))-((b.mastery||0)));
-  const colors=['var(--blus)','var(--grns)','var(--ambs)','var(--purs)','var(--reds)','var(--teals)','var(--roses)'];
-  const phases=['弱點診斷','重點學習','試卷衝刺','模擬考'];
 
-  if(subEl)subEl.textContent='統測倒數 '+daysLeft+' 天 · '+(schedDate.getMonth()+1)+'/'+(schedDate.getDate())+' · '+subjs.length+' 科';
-
-  // Calendar state
-  if(!window._schedViewMonth){
-    window._schedViewMonth=new Date(today.getFullYear(),today.getMonth(),1);
-  }
-
-  function getTaskForDate(dt){
-    const diff=Math.round((dt-today)/86400000);
-    if(diff<0||diff>Math.round((schedDate-today)/86400000)+30)return null;
-    const dw=dt.getDay();
-    const weekIdx=Math.floor(diff/7);
-    const isWE=dw===0||dw===6;
-    const phase=phases[Math.min(Math.floor(weekIdx/Math.max(1,Math.ceil(daysLeft/28))*4),3)];
-    const subj=sorted[diff%sorted.length];
-    return {subj,phase:isWE?'複習':phase,color:colors[sorted.indexOf(subj)%colors.length]};
-  }
-
-  function renderCal(){
-    const vm=window._schedViewMonth;
-    const y=vm.getFullYear(),m=vm.getMonth();
-    const firstDay=new Date(y,m,1);
-    const lastDay=new Date(y,m+1,0);
-    const startDow=firstDay.getDay();
-    const dayNames=['日','一','二','三','四','五','六'];
-    const minDate=new Date(today.getFullYear(),today.getMonth(),1);
-    const maxDate=new Date(today.getFullYear()+3,today.getMonth(),1);
-
-    let html='';
-    // Calendar header
-    html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">';
-    html+='<button onclick="schedNavMonth(-1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)"'+(vm<=minDate?' disabled style="opacity:.3"':'')+'>‹</button>';
-    html+='<div style="font-family:serif;font-size:20px;font-weight:700">'+y+' 年 '+(m+1)+' 月</div>';
-    html+='<button onclick="schedNavMonth(1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)"'+(vm>=maxDate?' disabled style="opacity:.3"':'')+'>›</button>';
-    html+='</div>';
-
-    // Day headers
-    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">';
-    dayNames.forEach((d,i)=>{
-      const color=i===0?'var(--red)':i===6?'#2563a8':'var(--ink3)';
-      html+='<div style="text-align:center;font-size:13px;font-weight:700;color:'+color+';padding:6px 0">'+d+'</div>';
-    });
-    html+='</div>';
-
-    // Day cells
-    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
-    // Empty cells before first day
-    for(let i=0;i<startDow;i++){html+='<div></div>';}
-    // Day cells
-    for(let d=1;d<=lastDay.getDate();d++){
-      const dt=new Date(y,m,d);
-      const isToday=dt.toDateString()===today.toDateString();
-      const isExam=dt.toDateString()===schedDate.toDateString();
-      const dw=dt.getDay();
-      const task=getTaskForDate(dt);
-      const isSun=dw===0,isSat=dw===6;
-      const textColor=isSun?'var(--red)':isSat?'#2563a8':'var(--ink)';
-
-      html+='<div style="border-radius:10px;padding:6px 5px;min-height:72px;background:'+(isToday?'var(--grns)':isExam?'var(--reds)':'var(--surf)')+';border:1.5px solid '+(isToday?'var(--grn)':isExam?'#c03030':task?'var(--bd2)':'var(--bd)')+';cursor:'+(task?'pointer':'default')+';position:relative" '+(task?'onclick="toast(\''+(m+1)+'/'+d+'：'+task.subj.name+' · '+task.phase+'\')"':'')+'>';
-      // Date number
-      html+='<div style="font-size:15px;font-weight:700;color:'+(isExam?'#c03030':isToday?'var(--grn)':textColor)+';margin-bottom:3px">'+d+(isExam?' 📌':'')+( isToday?' ✦':'')+' </div>';
-      // Task
-      if(task){
-        html+='<div style="font-size:11px;padding:2px 5px;border-radius:5px;background:'+task.color+';color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px">'+task.subj.name+'</div>';
-        html+='<div style="font-size:10px;color:var(--ink4)">'+task.phase+'</div>';
-      }
-      html+='</div>';
-    }
-    html+='</div>';
-
-    // Legend
-    html+='<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:14px;color:var(--ink3)">';
-    html+='<span>📌 統測日期</span><span>✦ 今天</span>';
-    sorted.slice(0,4).forEach((s,i)=>{html+='<span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+colors[i%colors.length]+';margin-right:4px"></span>'+s.name+'</span>';});
-    html+='</div>';
-
-    contentEl.innerHTML=html;
-  }
-
-  window.schedNavMonth=function(dir){
-    const vm=window._schedViewMonth;
-    const newM=new Date(vm.getFullYear(),vm.getMonth()+dir,1);
-    const minDate=new Date(today.getFullYear(),today.getMonth(),1);
-    const maxDate=new Date(today.getFullYear()+3,today.getMonth(),1);
-    if(newM>=minDate&&newM<=maxDate){window._schedViewMonth=newM;renderCal();}
-  };
-
-  renderCal();
-  buildDash();
-}
-
-// ═══ DASHBOARD ═══
 function buildDash(){
   if(!curUser)return;
   const subjs=getUserSubjs(curUser);
@@ -2571,18 +2732,19 @@ function openFAQ(){
 
 // ── PAGE NAVIGATION ──
 function gotoPage(page){
-  ['landing','app','orders','faq'].forEach(p=>{
+  ['landing','app','orders','faq','obs'].forEach(p=>{
     const el=document.getElementById('screen-'+p);
     if(el)el.classList.toggle('on',p===page);
   });
   currentPage=page;
   window.scrollTo(0,0);
   document.querySelectorAll('.l-lnk').forEach(b=>b.classList.remove('l-lnk-on'));
-  const map={app:'nav-lc',orders:'nav-orders',faq:'nav-faq'};
+  const map={app:'nav-lc',orders:'nav-orders',faq:'nav-faq',obs:'nav-obs'};
   if(map[page]){const el=document.getElementById(map[page]);if(el)el.classList.add('l-lnk-on');}
   if(page==='orders')buildOrdersPage();
   if(page==='faq')buildFaqPage();
-  if(page==='app'){buildDash();buildSubjLib();}
+  if(page==='obs')buildObsView();
+  if(page==='app'){buildDash();buildSubjLib();setTimeout(function(){initQuizTab();},100);}
 }
 function gotoLearning(){
   if(curUser){gotoPage('app');}
@@ -2867,7 +3029,7 @@ function toggleSchedAnalysis(){
       +'<td style="padding:9px 12px;font-weight:700;font-size:14px">'+s.name+'</td>'
       +'<td style="padding:9px 12px;font-size:14px;text-align:center">'+(s.mastery||0)+'%</td>'
       +'<td style="padding:9px 12px;font-size:14px">'+pri+'</td>'
-      +'<td style="padding:9px 12px;font-size:13px;color:var(--ink3)">'+(s.exam?'考科':'非考科')+'，需補強 '+rem+'%</td>'
+      +'<td style="padding:9px 12px;font-size:13px;color:var(--ink3)">'+'掌握度 '+(s.mastery||0)+'%，需補強 '+rem+'%</td>'
       +'<td style="padding:9px 12px;font-size:14px;text-align:center">'+h+'h/週</td>'
       +'</tr>';
   }).join('');
@@ -2888,6 +3050,45 @@ function toggleSchedAnalysis(){
     +'<strong>週末複習</strong>：週六間隔複習，週日模擬試卷。<br>'
     +'<strong>考前 2 週</strong>：全面切換為模擬考模式。'
     +'</div></div>';
+  // Add version history if any
+  if(schedVersions.length>0){
+    var dayNames=['日','一','二','三','四','五','六'];
+    var vhtml='<div class="card" style="margin-top:12px">'
+      +'<div class="ct">排程版本歷史 <span class="ct-sub">最近 '+schedVersions.length+' 版，可收折查看對話</span></div>';
+    schedVersions.forEach(function(v,i){
+      var restArr=[];v.restDays.forEach(function(d){restArr.push('週'+dayNames[d]);});
+      var vid='sched-v-'+i;
+      var m=v.date.getMonth()+1;var d2=v.date.getDate();
+      vhtml+='<div style="border-bottom:1px solid var(--bd)">'
+        // Header row (always visible)
+        +'<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;cursor:pointer" onclick="toggleSchedVer(this.dataset.vid)" data-vid="'+vid+'">'+'\n'
+          +'<div>'
+            +'<div style="font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px">'
+              +'<span style="font-size:11px;background:var(--surf2);padding:2px 7px;border-radius:10px;color:var(--ink3)">版本 '+(i+1)+'</span>'
+              +(i===0?'<span style="font-size:11px;background:var(--grns);padding:2px 7px;border-radius:10px;color:var(--grn)">最新</span>':'')
+              +m+'/'+d2+' 統測日期'
+            +'</div>'
+            +'<div style="font-size:12px;color:var(--ink3);margin-top:2px">'+v.label+' · '+v.dailyH+'h/天'+(restArr.length?' · 休：'+restArr.join('、'):'')+'</div>'
+          +'</div>'
+          +'<div style="display:flex;align-items:center;gap:8px">'
+            +'<button onclick="event.stopPropagation();restoreSchedVersion('+i+')" style="padding:5px 11px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:12px;cursor:pointer">還原</button>'
+            +'<span id="'+vid+'-arrow" style="font-size:12px;color:var(--ink4);transition:transform .2s">▸</span>'
+          +'</div>'
+        +'</div>'
+        // Collapsible chat log
+        +'<div id="'+vid+'" style="display:none;padding:0 0 12px">'
+          +(v.chat
+            ?'<div style="font-size:12px;color:var(--ink4);margin-bottom:8px;font-family:monospace">── 設定對話紀錄 ──</div>'
+             +'<div style="font-size:13px;line-height:1.7;max-height:300px;overflow-y:auto;border:1px solid var(--bd);border-radius:8px;padding:10px;background:var(--surf2)">'
+             +v.chat
+             +'</div>'
+            :'<div style="font-size:13px;color:var(--ink4);padding:8px 0">（此版本無對話紀錄）</div>')
+        +'</div>'
+      +'</div>';
+    });
+    vhtml+='</div>';
+    panel.innerHTML+=vhtml;
+  }
   panel.style.display='block';
   if(btn){btn.style.background='var(--grns)';btn.style.color='var(--grn)';}
 }
@@ -2953,9 +3154,711 @@ function navInlineSelect(item){
   });
 })();
 
-</script>
 
-<nav class="side-toc" style="display:none"></nav>
-<div id="faq-list" style="display:none"></div>
+// ════════════════════════════════════════════
+// AI 課程排程 — 完整重寫
+// ════════════════════════════════════════════
+
+// State
+let schedSetupStep=0;
+let schedRestDates=new Set();
+let schedMode=null; // 'zero'|'reinforce'|'sprint'
+let schedVersions=[]; // 0=idle,1=asking date,2=asking hours,3=asking rest,4=done
+let schedRestDays=new Set(); // weekday indices (0=Sun) user marked as rest
+let schedAdjDate=null; // date user wants to reschedule
+
+// ── Entry point ──
+function buildSchedFull(){
+  const content=document.getElementById('sched-content');
+  const sub=document.getElementById('sched-sub');
+  const resetBtn=document.getElementById('sched-reset-btn');
+  const regenBtn=document.getElementById('sched-regen-btn');
+  if(!content)return;
+
+  if(!schedDate){
+    // No date set → show AI conversation setup
+    if(resetBtn)resetBtn.style.display='none';
+    if(regenBtn)regenBtn.style.display='none';
+    buildSchedConversation();
+  } else {
+    if(resetBtn)resetBtn.style.display='';
+    if(regenBtn)regenBtn.style.display='';
+    const today=new Date();today.setHours(0,0,0,0);
+    const daysLeft=Math.max(0,Math.round((schedDate-today)/86400000));
+    if(sub)sub.textContent='統測倒數 '+daysLeft+' 天 · '+(schedDate.getMonth()+1)+'/'+(schedDate.getDate())+' · '+dailyH+'h/天 · '+getActiveSubjs().length+' 科';
+    buildSchedCalendar();
+  }
+  buildDash();
+}
+
+function getActiveSubjs(){
+  const allSubjs=getUserSubjs(curUser);
+  const selCodes=schedSel||allSubjs.map(s=>s.code);
+  return allSubjs.filter(s=>selCodes.includes(s.code));
+}
+
+// ── CONVERSATIONAL SETUP ──
+function buildSchedConversation(){
+  const content=document.getElementById('sched-content');
+  schedSetupStep=0;
+
+  // Mode selection screen
+  content.innerHTML='';
+  const wrap=document.createElement('div');
+  wrap.style.cssText='max-width:600px';
+
+  wrap.innerHTML=
+    '<div style="font-family:serif;font-size:22px;font-weight:800;margin-bottom:6px;color:var(--ink)">選擇你的備考階段</div>'
+    +'<div style="font-size:15px;color:var(--ink3);margin-bottom:28px;line-height:1.6">不同階段的學習策略不同。AI 會根據你的起點，設計最適合的課程排程。</div>'
+    +'<div style="display:flex;flex-direction:column;gap:14px">'
+
+    // Mode 1: 從零開始
+    +'<div class="sched-mode-card" onclick="selectSchedMode(&quot;zero&quot;)">'
+      +'<div style="display:flex;align-items:flex-start;gap:14px">'
+        +'<div style="width:44px;height:44px;border-radius:10px;background:var(--blus);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">🌱</div>'
+        +'<div style="flex:1">'
+          +'<div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:3px">從零開始</div>'
+          +'<div style="font-size:13px;color:var(--ink3);line-height:1.6">剛接觸統測，還沒系統性讀過這些科目。AI 幫你建立完整學習路線。</div>'
+          +'<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'
+            +'<span class="sched-tag">適合高一、高二上</span>'
+            +'<span class="sched-tag">全科建立基礎</span>'
+          +'</div>'
+        +'</div>'
+        +'<div style="font-size:18px;color:var(--ink4);flex-shrink:0">›</div>'
+      +'</div>'
+    +'</div>'
+
+    // Mode 2: 強化基礎
+    +'<div class="sched-mode-card" onclick="selectSchedMode(&quot;reinforce&quot;)">'
+      +'<div style="display:flex;align-items:flex-start;gap:14px">'
+        +'<div style="width:44px;height:44px;border-radius:10px;background:var(--ambs);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">📈</div>'
+        +'<div style="flex:1">'
+          +'<div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:3px">強化基礎</div>'
+          +'<div style="font-size:13px;color:var(--ink3);line-height:1.6">已學過部分內容，但掌握度參差不齊。AI 測驗後找出弱點，集中補強。</div>'
+          +'<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'
+            +'<span class="sched-tag">適合高二、高三上</span>'
+            +'<span class="sched-tag">弱點精準補強</span>'
+          +'</div>'
+        +'</div>'
+        +'<div style="font-size:18px;color:var(--ink4);flex-shrink:0">›</div>'
+      +'</div>'
+    +'</div>'
+
+    // Mode 3: 決勝衝刺
+    +'<div class="sched-mode-card" onclick="selectSchedMode(&quot;sprint&quot;)">'
+      +'<div style="display:flex;align-items:flex-start;gap:14px">'
+        +'<div style="width:44px;height:44px;border-radius:10px;background:var(--reds);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">🎯</div>'
+        +'<div style="flex:1">'
+          +'<div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:3px">決勝衝刺</div>'
+          +'<div style="font-size:13px;color:var(--ink3);line-height:1.6">距離統測剩下幾個月，需要快速定位弱點、模擬考試節奏，全力衝高分。</div>'
+          +'<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'
+            +'<span class="sched-tag">適合高三、考前半年</span>'
+            +'<span class="sched-tag">模擬統測難度</span>'
+          +'</div>'
+        +'</div>'
+        +'<div style="font-size:18px;color:var(--ink4);flex-shrink:0">›</div>'
+      +'</div>'
+    +'</div>'
+
+    +'</div>';
+
+  content.appendChild(wrap);
+}
+
+function selectSchedMode(mode){
+  schedMode=mode;
+  const content=document.getElementById('sched-content');
+  content.innerHTML='';
+
+  if(mode==='zero'){
+    // 從零開始：ask if completely new or has some knowledge
+    content.innerHTML='';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='max-width:520px';
+    wrap.innerHTML=
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;cursor:pointer" onclick="buildSchedConversation()">'
+        +'<span style="color:var(--ink4);font-size:14px">‹ 返回</span>'
+      +'</div>'
+      +'<div style="font-family:serif;font-size:20px;font-weight:800;margin-bottom:6px">從零開始</div>'
+      +'<div style="font-size:15px;color:var(--ink3);margin-bottom:24px">你對這些科目的了解程度是？</div>'
+      +'<div style="display:flex;flex-direction:column;gap:12px">'
+        +'<div class="sched-mode-card" onclick="zeroModeChoice(&quot;blank&quot;)">'
+          +'<div style="font-size:15px;font-weight:700;margin-bottom:4px">完全沒學過</div>'
+          +'<div style="font-size:13px;color:var(--ink3)">課本幾乎沒翻過，從頭開始沒問題。AI 直接幫你建立學習順序。</div>'
+        +'</div>'
+        +'<div class="sched-mode-card" onclick="zeroModeChoice(&quot;some&quot;)">'
+          +'<div style="font-size:15px;font-weight:700;margin-bottom:4px">有點基礎概念</div>'
+          +'<div style="font-size:13px;color:var(--ink3)">上課有在聽，但不確定記住多少。做 5 題快速測驗，AI 幫你定向。</div>'
+        +'</div>'
+      +'</div>';
+    content.appendChild(wrap);
+
+  } else if(mode==='reinforce'){
+    _startAnalysisChat('reinforce');
+  } else if(mode==='sprint'){
+    _startAnalysisChat('sprint');
+  }
+}
+
+function zeroModeChoice(choice){
+  if(choice==='blank'){
+    const subjs=getActiveSubjs();
+    subjs.forEach(function(s){s.mastery=5;});
+    _startSchedChat();
+  } else {
+    _startAnalysisChat('zero_some');
+  }
+}
+
+
+function _startSchedChat(){
+  // Start the schedule conversation (date → rest days → hours)
+  const content=document.getElementById('sched-content');
+  schedSetupStep=1;
+  const chat=document.createElement('div');
+  chat.id='sched-chat';
+  chat.style.cssText='display:flex;flex-direction:column;gap:14px;max-width:560px';
+  const row=document.createElement('div');
+  row.style.cssText='display:flex;gap:8px;margin-top:16px;max-width:560px';
+  const inp=document.createElement('input');
+  inp.id='sched-chat-inp';
+  inp.placeholder='輸入回覆...';
+  inp.style.cssText='flex:1;padding:11px 14px;border-radius:10px;border:1.5px solid var(--bd);background:var(--surf2);font-size:15px;color:var(--ink);outline:none';
+  inp.addEventListener('keydown', schedChatSend);
+  const btn=document.createElement('button');
+  btn.textContent='送出';
+  btn.style.cssText='padding:11px 18px;border-radius:10px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer';
+  btn.onclick=function(){schedChatSend({key:'Enter'});};
+  row.appendChild(inp); row.appendChild(btn);
+  content.innerHTML='';
+  content.appendChild(chat);
+  content.appendChild(row);
+  schedChatAI('好！我來幫你安排課程。\n\n首先，你的統測考試日期是幾月幾號？\n（例如：2026/7/18）');
+}
+
+
+function schedChatSend(e){
+  if(e && e.key!=='Enter')return;
+  const inp=document.getElementById('sched-chat-inp');
+  if(!inp)return;
+  const val=inp.value.trim();
+  if(!val)return;
+  inp.value='';
+  schedChatUser(val);
+  setTimeout(function(){schedChatProcess(val);},500);
+}
+
+function _startAnalysisChat(type){
+  const qMap={zero_some:5, reinforce:10, sprint:15};
+  const modeMap={zero_some:'adaptive', reinforce:'weak', sprint:'exam'};
+  quizCount=qMap[type]||10;
+  quizMode=modeMap[type]||'weak';
+  window._postQuizGoSched=true;
+  window._postQuizMode=type;
+  // Start quiz directly — no modal needed
+  closeModal('quiz-modal');
+  switchTab('quiz');
+  const bank=getQB(curSubj);
+  const s=getSubj(curSubj);
+  quizQs=[...bank].sort(()=>Math.random()-.5).slice(0,Math.min(quizCount,bank.length));
+  rIdx=0;
+  if(!quizQs.length){
+    toast('目前科目沒有題庫，直接進行排課程');
+    window._postQuizGoSched=false;
+    switchTab('sched');
+    _startSchedChat();
+    return;
+  }
+  // Update quiz header label
+  const labels={zero_some:'基礎定向測驗 ('+quizCount+'題)',reinforce:'水準掌握度測驗 ('+quizCount+'題)',sprint:'模擬難度測驗 ('+quizCount+'題)'};
+  const titleEl=document.getElementById('quiz-title');
+  if(titleEl)titleEl.textContent=labels[type]||'AI 測驗';
+  showQ(0);
+}
+
+
+
+function openSchedModal(){
+  schedDate=null;schedSetupStep=0;window._schedViewMonth=null;window._schedInitVersion=false;
+  switchTab('sched');
+  buildSchedFull();
+}
+
+
+function schedChatAI(text){
+  const chat=document.getElementById('sched-chat');
+  if(!chat)return;
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;gap:10px;align-items:flex-start';
+  div.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:#fff;font-weight:700">✦</div>'
+    +'<div style="background:var(--surf);border:1px solid var(--bd);border-radius:4px 14px 14px 14px;padding:12px 16px;font-size:15px;line-height:1.7;color:var(--ink);max-width:460px;white-space:pre-line">'+text+'</div>';
+  chat.appendChild(div);
+  chat.scrollTop=99999;
+}
+
+function schedChatUser(text){
+  const chat=document.getElementById('sched-chat');
+  if(!chat)return;
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;justify-content:flex-end';
+  div.innerHTML='<div style="background:var(--grn);border-radius:14px 4px 14px 14px;padding:11px 16px;font-size:15px;line-height:1.6;color:#fff;max-width:380px">'+text+'</div>';
+  chat.appendChild(div);
+  chat.scrollTop=99999;
+}
+
+function schedChatProcess(raw){
+  if(schedSetupStep===1){
+    const d=parseDate(raw);
+    if(!d||d<=new Date()){
+      schedChatAI('我沒辦法解析這個日期，請用「年/月/日」格式，例如 2026/7/18 ～');
+      return;
+    }
+    schedDate=d;
+    const daysLeft=Math.round((d-new Date())/86400000);
+    schedSetupStep=2;
+    schedChatAI('好！距離統測還有 '+daysLeft+' 天。\n\n有沒有固定不方便讀書的日子？\n例如：「每週三」、「每月 15 號」、「週六週日」，或是「沒有」。');
+
+  } else if(schedSetupStep===2){
+    schedRestDays=new Set();
+    schedRestDates=new Set();
+    const lower=raw;
+    const dayMap={'日':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,
+                  '周日':0,'周一':1,'周二':2,'周三':3,'周四':4,'周五':5,'周六':6,
+                  '週日':0,'週一':1,'週二':2,'週三':3,'週四':4,'週五':5,'週六':6};
+    Object.entries(dayMap).forEach(function(kv){
+      if(lower.includes(kv[0]))schedRestDays.add(kv[1]);
+    });
+    const dateMatches=lower.match(/[0-9０-９]+(?:號|日)/g)||[];
+    dateMatches.forEach(function(m){
+      const n=parseInt(m.replace(/[０-９]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);}));
+      if(n>=1&&n<=31)schedRestDates.add(n);
+    });
+    const hasNone=lower.includes('沒有')||lower.includes('都可以')||lower.includes('沒');
+    let restDesc='';
+    if(!hasNone&&(schedRestDays.size>0||schedRestDates.size>0)){
+      const dayNames=['日','一','二','三','四','五','六'];
+      const parts=[];
+      schedRestDays.forEach(function(d){parts.push('每週'+dayNames[d]);});
+      schedRestDates.forEach(function(d){parts.push('每月'+d+'號');});
+      restDesc='已標記：'+parts.join('、')+'。';
+    } else {
+      restDesc='沒問題，每天都可以讀書。';
+    }
+    schedSetupStep=3;
+    schedChatAI(restDesc+'\n\n你平均每天能安排幾小時讀書？');
+
+  } else if(schedSetupStep===3){
+    const normalized=raw.replace(/[０-９]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);});
+    const m=normalized.match(/[\d.]+/);
+    const h=m?parseFloat(m[0]):null;
+    if(!h||h<0.5||h>16){
+      schedChatAI('請輸入每天可讀書的小時數，例如「1」或「2.5」～');
+      return;
+    }
+    dailyH=String(h);
+    const today=new Date();today.setHours(0,0,0,0);
+    const daysTotal=Math.max(1,Math.round((schedDate-today)/86400000));
+    let restCount=0;
+    for(let i=0;i<daysTotal;i++){
+      const dt=new Date(today);dt.setDate(dt.getDate()+i);
+      if(schedRestDays.has(dt.getDay()))restCount++;
+      if(schedRestDates&&schedRestDates.has(dt.getDate()))restCount++;
+    }
+    const effectiveDays=Math.max(1,daysTotal-restCount);
+    const totalHours=Math.round(effectiveDays*h);
+    const subjs=getActiveSubjs();
+    schedSetupStep=4;
+    schedChatAI('每天 '+h+' 小時。\n\n扣掉休息日後，你有 '+effectiveDays+' 個有效備考天（約 '+totalHours+' 小時），'
+      +'幫你分析 '+subjs.length+' 個科目的掌握度，用「弱點優先 × 交叉排程」排出最有效率的計劃。\n\n生成中...');
+    var chatEl=document.getElementById('sched-chat');
+    var chatSnapshot=chatEl?chatEl.innerHTML:'';
+    setTimeout(function(){
+      if(!window._schedInitVersion){
+        schedVersions.unshift({
+          date:new Date(schedDate),dailyH:dailyH,
+          restDays:new Set(schedRestDays),restDates:new Set(schedRestDates||[]),
+          label:new Date().toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+          chat:chatSnapshot
+        });
+        if(schedVersions.length>3)schedVersions.pop();
+        window._schedInitVersion=true;
+      }
+      buildSchedFull();
+      toast('✓ AI 課程表已生成！');
+    },1200);
+
+  } else if(schedSetupStep===4){
+    handleSchedAdjust(raw);
+  }
+}
+
+
+function buildSchedCalendar(){
+  const content=document.getElementById('sched-content');
+  if(!content)return;
+
+  const today=new Date();today.setHours(0,0,0,0);
+  const subjs=getActiveSubjs();
+  if(!subjs.length){content.innerHTML='<div style="padding:40px;text-align:center;color:var(--ink3)">請先選擇科目</div>';return;}
+  const sorted=[...subjs].sort((a,b)=>(a.mastery||0)-(b.mastery||0));
+  const colors=['var(--blus)','var(--grns)','var(--ambs)','var(--purs)','var(--reds)','var(--teals)'];
+  const phases=['弱點診斷','重點學習','試卷衝刺','模擬考'];
+  const reasons=['掌握度最低，優先強化','弱點科目，交叉鞏固','間隔複習，鞏固記憶','週末加強，模擬考試','輪替安排，避免疲乏'];
+
+  if(!window._schedViewMonth)
+    window._schedViewMonth=new Date(today.getFullYear(),today.getMonth(),1);
+
+  function getTask(dt){
+    const dw=dt.getDay();
+    if(schedRestDays&&schedRestDays.has(dw))return null;
+    if(schedRestDates&&schedRestDates.has(dt.getDate()))return null;
+    const diff=Math.round((dt-today)/86400000);
+    if(diff<0)return null;
+    const daysLeft=Math.max(1,Math.round((schedDate-today)/86400000));
+    if(diff>daysLeft+14)return null;
+    const isWE=dw===0||dw===6;
+    const phaseIdx=Math.min(Math.floor((diff/daysLeft)*4),3);
+    const subj=sorted[diff%sorted.length];
+    const ci=sorted.indexOf(subj)%colors.length;
+    const reason=diff===0?'今天從這科開始！':reasons[Math.min(diff%reasons.length,reasons.length-1)];
+    return{subj,phase:isWE?'複習':phases[phaseIdx],color:colors[ci],reason};
+  }
+
+  function renderCal(){
+    const vm=window._schedViewMonth;
+    const y=vm.getFullYear(),mo=vm.getMonth();
+    const first=new Date(y,mo,1);
+    const last=new Date(y,mo+1,0);
+    const minM=new Date(today.getFullYear(),today.getMonth(),1);
+    const maxM=new Date(today.getFullYear()+3,today.getMonth(),1);
+    const dayNames=['日','一','二','三','四','五','六'];
+
+    let html='';
+    // Nav
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">'
+      +'<button onclick="schedNavMonth(-1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)'+(vm<=minM?';opacity:.3;cursor:default':'')+'"'+(vm<=minM?' disabled':'')+'>‹</button>'
+      +'<div style="font-family:serif;font-size:22px;font-weight:700">'+y+' 年 '+(mo+1)+' 月</div>'
+      +'<button onclick="schedNavMonth(1)" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--bd);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)'+(vm>=maxM?';opacity:.3;cursor:default':'')+'"'+(vm>=maxM?' disabled':'')+'>›</button>'
+      +'</div>';
+    // Day headers
+    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">';
+    dayNames.forEach(function(d,i){
+      html+='<div style="text-align:center;font-size:15px;font-weight:700;padding:8px 0;color:'+(i===0?'var(--red)':i===6?'#2563a8':'var(--ink3)')+'">'+d+'</div>';
+    });
+    html+='</div>';
+    // Cells
+    html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
+    for(var i=0;i<first.getDay();i++)html+='<div></div>';
+    for(var d=1;d<=last.getDate();d++){
+      const dt=new Date(y,mo,d);
+      const isToday=dt.toDateString()===today.toDateString();
+      const isExam=schedDate&&dt.toDateString()===schedDate.toDateString();
+      const dw=dt.getDay();
+      const isRest=(schedRestDays&&schedRestDays.has(dw))||(schedRestDates&&schedRestDates.has(d));
+      const task=getTask(dt);
+      const isSun=dw===0,isSat=dw===6;
+      const numColor=isExam?'#c03030':isToday?'var(--grn)':isSun?'var(--red)':isSat?'#2563a8':'var(--ink)';
+      const bg=isToday?'var(--grns)':isExam?'#fff0f0':isRest?'var(--surf2)':'var(--surf)';
+      const border=isToday?'var(--grn)':isExam?'#c03030':task?'var(--bd2)':'var(--bd)';
+      const info=task?'AI分析：'+task.subj.name+'．'+task.reason+'．'+task.phase:'';
+      const clickFn=isRest?'toggleRestDay('+dw+')':task?'toast(\''+info.replace(/'/g,'')+'\')':'toggleRestDay('+dw+')';
+
+      html+='<div onclick="'+clickFn+'" style="border-radius:10px;padding:6px 5px;min-height:88px;background:'+bg+';border:1.5px solid '+border+';cursor:pointer;position:relative;transition:border-color .15s" onmouseover="this.style.borderColor=\'var(--grn)\'" onmouseout="this.style.borderColor=\''+border+'\'">';
+      html+='<div style="font-size:17px;font-weight:800;color:'+numColor+';margin-bottom:3px">'+d+(isExam?' 📌':'')+(isToday?' ✦':'')+'</div>';
+      if(isRest){
+        html+='<div style="font-size:12px;color:var(--ink4)">休息日</div>';
+      } else if(task){
+        html+='<div style="font-size:13px;padding:3px 6px;border-radius:5px;background:'+task.color+';color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px">'+task.subj.name+'</div>';
+        html+='<div style="font-size:12px;color:var(--ink4)">'+task.phase+'</div>';
+        html+='<div style="font-size:10px;color:var(--ink4);margin-top:2px">✦ '+task.reason.slice(0,8)+'</div>';
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+    // Hints
+    html+='<div style="margin-top:14px;font-size:13px;color:var(--ink4)">點格子可查看 AI 分析，點空白格標記休息日</div>';
+    // Legend
+    html+='<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:var(--ink3)">';
+    html+='<span>📌 統測日期</span><span>✦ 今天</span>';
+    sorted.slice(0,3).forEach(function(s,i){
+      html+='<span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+colors[i%colors.length]+';margin-right:4px"></span>'+s.name+'</span>';
+    });
+    html+='</div>';
+    // Inline adjust chat
+    html+='<div style="margin-top:24px;border-top:1px solid var(--bd);padding-top:16px">'
+      +'<div style="font-size:13px;font-weight:700;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="color:var(--grn)">✦</span> 跟 AI 調整排程</div>'
+      +'<div id="sched-adj-chat" style="display:flex;flex-direction:column;gap:10px;max-height:200px;overflow-y:auto;margin-bottom:10px"></div>'
+      +'<div style="display:flex;gap:8px">'
+      +'<input id="sched-adj-inp" placeholder="例如：週三我有事、週五不想讀書..." style="flex:1;padding:10px 13px;border-radius:10px;border:1.5px solid var(--bd);background:var(--surf2);font-size:14px;color:var(--ink);outline:none" onkeydown="schedAdjSend(event)">'
+      +'<button onclick="schedAdjSend({key:\'Enter\'})" style="padding:10px 16px;border-radius:10px;border:none;background:var(--grn);color:#fff;font-size:13px;font-weight:700;cursor:pointer">調整</button>'
+      +'</div></div>';
+
+    content.innerHTML=html;
+  }
+
+  window.schedNavMonth=function(dir){
+    const vm=window._schedViewMonth;
+    const newM=new Date(vm.getFullYear(),vm.getMonth()+dir,1);
+    const minM=new Date(today.getFullYear(),today.getMonth(),1);
+    const maxM=new Date(today.getFullYear()+3,today.getMonth(),1);
+    if(newM>=minM&&newM<=maxM){window._schedViewMonth=newM;buildSchedCalendar();}
+  };
+
+  window.toggleRestDay=function(dw){
+    const days=['日','一','二','三','四','五','六'];
+    if(schedRestDays.has(dw)){schedRestDays.delete(dw);toast('移除週'+days[dw]+' 休息日');}
+    else{schedRestDays.add(dw);toast('標記週'+days[dw]+' 為休息日');}
+    buildSchedCalendar();
+  };
+
+  window.schedAdjSend=function(e){
+    if(e.key!=='Enter')return;
+    const inp=document.getElementById('sched-adj-inp');
+    if(!inp||!inp.value.trim())return;
+    const val=inp.value.trim();inp.value='';
+    const chat=document.getElementById('sched-adj-chat');
+    if(!chat)return;
+    chat.insertAdjacentHTML('beforeend','<div style="display:flex;justify-content:flex-end"><div style="background:var(--grn);border-radius:14px 4px 14px 14px;padding:9px 13px;font-size:14px;color:#fff;max-width:300px">'+val+'</div></div>');
+    setTimeout(function(){
+      const dayMap={'日':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'週日':0,'週一':1,'週二':2,'週三':3,'週四':4,'週五':5,'週六':6};
+      var found=false;
+      Object.entries(dayMap).forEach(function(kv){
+        if(val.includes(kv[0])&&(val.includes('有事')||val.includes('休息')||val.includes('不想')||val.includes('沒空'))){
+          schedRestDays.add(kv[1]);found=true;
+        }
+      });
+      const reply=found?'好的！已幫你標記休息日，課程已自動調整。':'收到！你可以點行事曆上的格子來標記休息日。';
+      chat.insertAdjacentHTML('beforeend','<div style="display:flex;gap:8px"><div style="width:24px;height:24px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0">✦</div><div style="background:var(--surf);border:1px solid var(--bd);border-radius:4px 12px 12px 12px;padding:10px 13px;font-size:14px;color:var(--ink);max-width:340px">'+reply+'</div></div>');
+      if(found)buildSchedCalendar();
+      chat.scrollTop=99999;
+    },500);
+  };
+
+  renderCal();
+}
+
+
+function toggleSchedVer(id){
+  var el=document.getElementById(id);
+  var arrow=document.getElementById(id+'-arrow');
+  if(!el)return;
+  var isOpen=el.style.display!=='none';
+  el.style.display=isOpen?'none':'block';
+  if(arrow)arrow.style.transform=isOpen?'':'rotate(90deg)';
+}
+
+
+function initQuizTab(){
+  const qi=document.getElementById('quiz-inner');
+  if(!qi)return;
+  // If quiz is actively showing a question (not result/empty), don't override
+  if(qi.querySelector('.q-card'))return;
+  showQuizHistory();
+}
+
+
+function _injectFakeQuizHistory(userId){
+  quizHistory=[];
+  if(userId==='A'){
+    // 陳同學: 電工原理
+    quizHistory=[
+      {date:new Date(Date.now()-7*86400000),subjName:'電工原理',subjCode:'E1',total:10,score:7,pct:70,mode:'adaptive',
+       wrong:[
+         {q:'兩個 6Ω 電阻並聯，總電阻為？',opts:['A. 12Ω','B. 6Ω','C. 3Ω','D. 1Ω'],userAns:1,correctAns:2,exp:'並聯：1/R = 1/6+1/6，R=3Ω'},
+         {q:'交流電 RMS 值與峰值關係？',opts:['A. RMS=峰值','B. RMS=峰值/√2','C. RMS=峰值×√2','D. RMS=峰值/2'],userAns:0,correctAns:1,exp:'有效值=峰值/√2'},
+         {q:'三相電壓相序標準為？',opts:['A. ABC','B. ACB','C. BAC','D. BCA'],userAns:2,correctAns:0,exp:'正相序為 A→B→C'},
+       ]},
+      {date:new Date(Date.now()-4*86400000),subjName:'電工原理',subjCode:'E1',total:10,score:8,pct:80,mode:'weak',
+       wrong:[
+         {q:'交流電 RMS 值與峰值關係？',opts:['A. RMS=峰值','B. RMS=峰值/√2','C. RMS=峰值×√2','D. RMS=峰值/2'],userAns:3,correctAns:1,exp:'有效值=峰值/√2'},
+         {q:'電容的單位為？',opts:['A. 亨利','B. 法拉','C. 歐姆','D. 西門子'],userAns:0,correctAns:1,exp:'電容單位是法拉（F）'},
+       ]},
+      {date:new Date(Date.now()-1*86400000),subjName:'電工原理',subjCode:'E1',total:10,score:9,pct:90,mode:'adaptive',
+       wrong:[
+         {q:'電感的單位為？',opts:['A. 亨利','B. 法拉','C. 歐姆','D. 瓦特'],userAns:1,correctAns:0,exp:'電感單位是亨利（H）'},
+       ]},
+    ];
+  } else if(userId==='B'||userId==='C'){
+    // 林同學/王同學: 商業管理群
+    quizHistory=[
+      {date:new Date(Date.now()-10*86400000),subjName:'商業概論',subjCode:'B1a',total:10,score:5,pct:50,mode:'adaptive',
+       wrong:[
+         {q:'企業的主要目標為？',opts:['A. 利潤最大化','B. 員工最多化','C. 社會責任最大化','D. 市場佔有率'],userAns:3,correctAns:0,exp:'企業基本目標是利潤最大化'},
+         {q:'SWOT 分析中 T 代表？',opts:['A. 技術','B. 威脅','C. 趨勢','D. 工具'],userAns:0,correctAns:1,exp:'T = Threats 威脅'},
+         {q:'行銷 4P 中不包含？',opts:['A. 產品','B. 價格','C. 人力','D. 通路'],userAns:0,correctAns:2,exp:'4P = Product, Price, Place, Promotion'},
+         {q:'損益平衡點是指？',opts:['A. 利潤最高點','B. 收入=成本','C. 成本最低點','D. 市場飽和點'],userAns:0,correctAns:1,exp:'損益平衡：收入=總成本'},
+         {q:'無形資產不包括？',opts:['A. 商標','B. 專利','C. 廠房','D. 商譽'],userAns:1,correctAns:2,exp:'廠房是有形資產'},
+       ]},
+      {date:new Date(Date.now()-6*86400000),subjName:'商業概論',subjCode:'B1a',total:10,score:7,pct:70,mode:'weak',
+       wrong:[
+         {q:'SWOT 分析中 T 代表？',opts:['A. 技術','B. 威脅','C. 趨勢','D. 工具'],userAns:2,correctAns:1,exp:'T = Threats 威脅'},
+         {q:'損益平衡點是指？',opts:['A. 利潤最高點','B. 收入=成本','C. 成本最低點','D. 市場飽和點'],userAns:3,correctAns:1,exp:'損益平衡：收入=總成本'},
+         {q:'企業願景與使命差異在？',opts:['A. 時間長短','B. 範圍大小','C. 願景描述未來方向，使命說明當前存在意義','D. 無差異'],userAns:0,correctAns:2,exp:'願景=未來，使命=現在'},
+       ]},
+      {date:new Date(Date.now()-3*86400000),subjName:'數位科技概論',subjCode:'B1b',total:10,score:8,pct:80,mode:'exam',
+       wrong:[
+         {q:'雲端運算的主要特徵不包括？',opts:['A. 隨需應用','B. 廣泛網路存取','C. 實體伺服器','D. 資源共享'],userAns:1,correctAns:2,exp:'雲端不需要實體伺服器'},
+         {q:'SQL 語言中 SELECT 用途？',opts:['A. 新增資料','B. 查詢資料','C. 刪除資料','D. 更新資料'],userAns:3,correctAns:1,exp:'SELECT = 查詢'},
+       ]},
+      {date:new Date(Date.now()-1*86400000),subjName:'商業概論',subjCode:'B1a',total:10,score:9,pct:90,mode:'weak',
+       wrong:[
+         {q:'SWOT 分析中 T 代表？',opts:['A. 技術','B. 威脅','C. 趨勢','D. 工具'],userAns:0,correctAns:1,exp:'T = Threats 威脅'},
+       ]},
+    ];
+  } else {
+    quizHistory=[];
+  }
+}
+
+
+// ════════════════════════════════════════════
+// 教師觀察區 buildObsView
+// ════════════════════════════════════════════
+var _obsFilter='all', _obsSort='lastLogin', _obsSelected=null;
+
+function buildObsView(){
+  const el=document.getElementById('obs-inner');
+  if(!el){console.error('obs-inner not found');return;}
+  if(!curUser){el.innerHTML='<div style="padding:40px;color:red">未登入</div>';return;}
+  if(curUser.role!=='teacher'){el.innerHTML='<div style="padding:40px;color:red">無教師權限</div>';return;}
+  const cls=CLASS_DATA[curUser.classCode];
+  if(!cls){el.innerHTML='<div style="padding:40px;text-align:center;color:var(--ink3)">找不到班級資料（'+curUser.classCode+'）</div>';return;}
+
+  const subjectNames={'B1a':'商業概論','B1b':'數位科技概論','B1c':'數位科技應用',
+    'B2a':'會計學','B2b':'經濟學','COM_CH':'國文','COM_EN':'英文','COM_MB':'數學(B)'};
+
+  var stus=STUDENTS.filter(function(s){return s.classCode===curUser.classCode;});
+  if(_obsFilter==='active')stus=stus.filter(function(s){return s.daysAgo<=3;});
+  if(_obsFilter==='risk')stus=stus.filter(function(s){return s.daysAgo>=7||s.avgScore<60;});
+  if(_obsSort==='score')stus=stus.slice().sort(function(a,b){return a.avgScore-b.avgScore;});
+  else if(_obsSort==='sessions')stus=stus.slice().sort(function(a,b){return b.totalSessions-a.totalSessions;});
+  else stus=stus.slice().sort(function(a,b){return a.daysAgo-b.daysAgo;});
+
+  var avgScore=stus.length?Math.round(stus.reduce(function(a,s){return a+s.avgScore;},0)/stus.length):0;
+  var activeCount=stus.filter(function(s){return s.daysAgo<=3;}).length;
+  var riskCount=stus.filter(function(s){return s.daysAgo>=14||s.avgScore<55;}).length;
+
+  var html='<div style="max-width:1100px">';
+  html+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px">';
+  html+='<div><div style="font-family:serif;font-size:22px;font-weight:800">教師觀察區</div>';
+  html+='<div style="font-size:14px;color:var(--ink3);margin-top:3px">'+cls.school+' · '+cls.grade+' · '+cls.label+'</div></div>';
+  html+='<div style="font-size:12px;color:var(--ink4);background:var(--surf2);padding:6px 12px;border-radius:8px;border:1px solid var(--bd)">序號：'+curUser.classCode+'</div>';
+  html+='</div>';
+
+  // Summary
+  html+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">';
+  [{label:'全班人數',val:STUDENTS.filter(function(s){return s.classCode===curUser.classCode;}).length+'人',color:'var(--ink)'},
+   {label:'本週活躍',val:activeCount+'人',color:'var(--grn)'},
+   {label:'全班平均',val:avgScore+'%',color:avgScore>=70?'var(--grn)':avgScore>=55?'var(--amb)':'var(--red)'},
+   {label:'需關注',val:riskCount+'人',color:riskCount>0?'var(--red)':'var(--grn)'}
+  ].forEach(function(card){
+    html+='<div style="background:var(--surf);border:1.5px solid var(--bd);border-radius:12px;padding:16px;text-align:center">';
+    html+='<div style="font-size:26px;font-weight:800;color:'+card.color+';font-family:monospace">'+card.val+'</div>';
+    html+='<div style="font-size:12px;color:var(--ink3);margin-top:4px">'+card.label+'</div></div>';
+  });
+  html+='</div>';
+
+  // Filters
+  html+='<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center">';
+  [['all','全部'],['active','活躍中'],['risk','需關注']].forEach(function(f){
+    var a=_obsFilter===f[0];
+    html+='<button onclick="obsSetFilter(\''+f[0]+'\')" style="padding:6px 14px;border-radius:20px;border:1.5px solid '+(a?'var(--grn)':'var(--bd2)')+';background:'+(a?'var(--grns)':'var(--surf2)')+';color:'+(a?'var(--grn)':'var(--ink2)')+';font-size:13px;font-weight:'+(a?700:500)+';cursor:pointer">'+f[1]+'</button>';
+  });
+  html+='<div style="margin-left:auto;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink3)">排序：';
+  [['lastLogin','最近登入'],['score','平均分'],['sessions','使用次數']].forEach(function(s){
+    var a=_obsSort===s[0];
+    html+='<button onclick="obsSetSort(\''+s[0]+'\')" style="padding:5px 10px;border-radius:8px;border:1px solid '+(a?'var(--grn)':'var(--bd)')+';background:'+(a?'var(--grns)':'transparent')+';color:'+(a?'var(--grn)':'var(--ink3)')+';font-size:12px;cursor:pointer">'+s[1]+'</button>';
+  });
+  html+='</div></div>';
+
+  // Grid: list + detail
+  html+='<div style="display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:start">';
+
+  // Student list
+  html+='<div>';
+  stus.forEach(function(s){
+    var sel=_obsSelected===s.id;
+    var sc=s.avgScore;
+    var col=sc>=75?'var(--grn)':sc>=60?'var(--amb)':'var(--red)';
+    html+='<div onclick="obsSelectStudent(\''+s.id+'\')" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin-bottom:6px;cursor:pointer;background:'+(sel?'var(--grns)':'var(--surf)')+';border:1.5px solid '+(sel?'var(--grn)':'var(--bd)')+';transition:all .15s">';
+    html+='<div style="width:38px;height:38px;border-radius:50%;background:var(--grn);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+s.name.slice(0,1)+'</div>';
+    html+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">'+s.name+'</div>';
+    html+='<div style="font-size:12px;color:var(--ink3)">最近：'+s.status+' · 使用 '+s.totalSessions+' 次</div></div>';
+    html+='<div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:800;color:'+col+';font-family:monospace">'+sc+'%</div>';
+    html+='<div style="font-size:10px;color:'+s.statusColor+'">'+s.status+'</div></div>';
+    // Mini trend bars
+    html+='<div style="width:50px;flex-shrink:0;display:flex;gap:2px;align-items:flex-end;height:20px">';
+    s.recentQuizzes.slice(0,5).reverse().forEach(function(q){
+      var h=Math.max(3,Math.round(q.pct/100*20));
+      var bc=q.pct>=75?'var(--grn)':q.pct>=60?'var(--amb)':'var(--red)';
+      html+='<div style="flex:1;height:'+h+'px;background:'+bc+';border-radius:1px"></div>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div>';
+
+  // Detail panel
+  var sel=_obsSelected?STUDENTS.find(function(s){return s.id===_obsSelected;}):null;
+  if(sel){
+    var sc=sel.avgScore;
+    var col=sc>=75?'var(--grn)':sc>=60?'var(--amb)':'var(--red)';
+    html+='<div style="background:var(--surf);border:1.5px solid var(--bd);border-radius:14px;padding:20px;position:sticky;top:80px">';
+    html+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--bd)">';
+    html+='<div style="width:48px;height:48px;border-radius:50%;background:var(--grn);color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center">'+sel.name.slice(0,1)+'</div>';
+    html+='<div><div style="font-size:17px;font-weight:800">'+sel.name+'</div>';
+    html+='<div style="font-size:12px;color:var(--ink3)">'+sel.id+' · '+sel.status+'</div></div></div>';
+    // Stats
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">';
+    [{label:'平均分',val:sel.avgScore+'%',color:col},{label:'總使用',val:sel.totalSessions+'次',color:'var(--ink)'},{label:'連續',val:sel.streak+'天',color:'var(--amb)'}].forEach(function(c2){
+      html+='<div style="background:var(--surf2);border-radius:9px;padding:10px;text-align:center">';
+      html+='<div style="font-size:18px;font-weight:800;color:'+c2.color+';font-family:monospace">'+c2.val+'</div>';
+      html+='<div style="font-size:11px;color:var(--ink3);margin-top:2px">'+c2.label+'</div></div>';
+    });
+    html+='</div>';
+    html+='<div style="font-size:13px;color:var(--ink3);margin-bottom:14px">最後：'+(sel.daysAgo===0?'今天':sel.daysAgo+'天前')+' · 每週 '+sel.sessionsPerWeek+' 次</div>';
+    // Mastery bars
+    html+='<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:8px;letter-spacing:.06em">各科掌握度</div>';
+    Object.entries(sel.mastery).forEach(function(kv){
+      var m=kv[1];var mc=m>=75?'var(--grn)':m>=60?'var(--amb)':'var(--red)';
+      html+='<div style="margin-bottom:5px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>'+(subjectNames[kv[0]]||kv[0])+'</span><span style="color:'+mc+';font-weight:700">'+m+'%</span></div>';
+      html+='<div style="height:5px;background:var(--bd);border-radius:3px"><div style="height:100%;width:'+m+'%;background:'+mc+';border-radius:3px"></div></div></div>';
+    });
+    html+='</div>';
+    // Weak subjects
+    html+='<div style="background:var(--reds);border-radius:9px;padding:10px;margin-bottom:14px">';
+    html+='<div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">⚠ 弱點科目</div>';
+    sel.weakSubjs.forEach(function(code){html+='<div style="font-size:13px;color:var(--ink)">· '+(subjectNames[code]||code)+' ('+sel.mastery[code]+'%)</div>';});
+    html+='</div>';
+    // Recent quizzes
+    if(sel.recentQuizzes.length){
+      html+='<div><div style="font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:8px;letter-spacing:.06em">最近試卷</div>';
+      sel.recentQuizzes.slice(0,4).forEach(function(q){
+        var qc=q.pct>=75?'var(--grn)':q.pct>=60?'var(--amb)':'var(--red)';
+        var dt=new Date(q.date);
+        html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:13px">';
+        html+='<div><div style="font-weight:600">'+q.subjName+'</div><div style="font-size:11px;color:var(--ink3)">'+(dt.getMonth()+1)+'/'+(dt.getDate())+'</div></div>';
+        html+='<div style="font-weight:800;color:'+qc+';font-family:monospace">'+q.pct+'%</div></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  } else {
+    html+='<div style="background:var(--surf2);border:1.5px dashed var(--bd);border-radius:14px;padding:32px;text-align:center;color:var(--ink4)">';
+    html+='<div style="font-size:28px;margin-bottom:8px">👆</div>';
+    html+='<div style="font-size:14px">點選左側學生<br>查看詳細分析</div></div>';
+  }
+
+  html+='</div></div>';
+  el.innerHTML=html;
+}
+
+function obsSetFilter(f){_obsFilter=f;buildObsView();}
+function obsSetSort(s){_obsSort=s;buildObsView();}
+function obsSelectStudent(id){_obsSelected=id;buildObsView();}
+
+
+function gotoObs(){gotoPage('obs');}
+
+</script>
 </body>
 </html>
