@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>· AI 知識導航員 · 四技二專統測</title>
+<title>MOSME · AI 知識導航員 · 四技二專統測</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -70,7 +70,7 @@ button{cursor:pointer;font-family:inherit;}
 .cs-1::before{background:radial-gradient(ellipse 60% 80% at 80% 50%,#1448a0,transparent);}
 .cs-2::before{background:radial-gradient(ellipse 60% 80% at 80% 50%,#8a4e00,transparent);}
 .cs-3::before{background:radial-gradient(ellipse 60% 80% at 80% 50%,#5a2498,transparent);}
-.car-content{position:relative;z-index:2;max-width:900px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,48px);box-sizing:border-box;}
+.car-content{position:relative;z-index:1;max-width:900px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,48px) 0 clamp(20px,4vw,48px);box-sizing:border-box;overflow:hidden;}
 .car-eyebrow{font-size:13px;font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;opacity:.55;color:#fff;}
 .car-h{font-family:'Noto Serif TC',serif;font-size:clamp(26px,4vw,48px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em;}
 .car-p{font-size:clamp(13px,1.5vw,14px);color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:22px;max-width:440px;}
@@ -79,7 +79,7 @@ button{cursor:pointer;font-family:inherit;}
 .car-btn-p:hover{opacity:.9;}
 .car-btn-s{padding:9px 18px;border-radius:8px;border:1.5px solid rgba(255,255,255,.22);background:transparent;color:rgba(255,255,255,.7);font-size:16px;transition:all .15s;}
 .car-btn-s:hover{border-color:rgba(255,255,255,.55);color:#fff;}
-.car-visual{position:absolute;right:clamp(24px,6vw,80px);top:50%;transform:translateY(-50%);opacity:.14;font-size:clamp(90px,16vw,200px);pointer-events:none;user-select:none;}
+.car-visual{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);opacity:.12;font-size:clamp(80px,10vw,160px);pointer-events:none;user-select:none;z-index:0;}
 .car-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
 .cnd{width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.28);border:none;cursor:pointer;transition:all .3s;}
 .cnd.on{background:#fff;width:42px;}
@@ -670,7 +670,7 @@ footer.l-footer ~ *{background:#0d1117;}
   <div class="lf-brand">
     <div style="font-family:'Noto Serif TC',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px">AI 知識導航員</div>
     <div style="font-size:13px;color:rgba(255,255,255,.42);margin-bottom:14px">四技二專統測 AI 備考平台</div>
-    <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:300px">由勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
+    <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:300px">由 MOSME 勁園科教集團開發。提供 AI 自適應學習、智慧試卷、課程排程，一站式統測備考解決方案。</p>
   </div>
   <div class="lf-col">
     <div class="lf-col-title">MOSME 平台</div>
@@ -785,12 +785,12 @@ footer.l-footer ~ *{background:#0d1117;}
       <div class="pm-section-label">選擇付款方式（由藍新金流處理）</div>
       <div class="pm-pay-buttons">
         <button class="pm-pay-btn pm-pay-apple" onclick="submitPurchaseWith('applepay')">🍎 Apple Pay</button>
-        <button class="pm-pay-btn pm-pay-line" onclick="submitPurchaseWith('linepay')">LINE Pay</button>
-        <button class="pm-pay-btn pm-pay-card" onclick="submitPurchaseWith('creditcard')">💳 信用卡</button>
+        <button class="pm-pay-btn pm-pay-line" onclick="submitPurchaseWith(&quot;linepay&quot;)">LINE Pay</button>
+        <button class="pm-pay-btn pm-pay-card" onclick="submitPurchaseWith(&quot;creditcard&quot;)">💳 信用卡</button>
       </div>
       <div class="pm-secure">🔒 256-bit SSL · PCI DSS 合規 · 模擬展示不扣款</div>
     </div>
-    <button id="pm-submit" style="display:none" onclick="submitPurchaseWith('creditcard')">確認</button>
+    <button id="pm-submit" style="display:none" onclick="submitPurchaseWith(&quot;creditcard&quot;)">確認</button>
   </div>
 </div>
 
@@ -1013,6 +1013,7 @@ function closeModal(id){
   var el=document.getElementById(id);
   if(!el)return;
   el.classList.remove('on');
+  if(id==='purchase-modal'&&window._pmCloseHandler){window._pmCloseHandler();window._pmCloseHandler=null;}
 }
 document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
 function lScroll(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
@@ -1197,26 +1198,111 @@ function toggleSubjCart(code,name,gid,gname,el){
   updateCartBar();
 }
 function updateCartBar(){
-  const codes=Object.keys(cart);
+  const items=Object.values(cart);
   const bar=document.getElementById('cart-bar');
   if(!bar)return;
-  if(!codes.length){bar.style.display='none';return;}
+  if(!items.length){bar.style.display='none';return;}
+  
+  let totalPrice=0, totalOrig=0;
+  const labels=[];
+  items.forEach(function(item){
+    if(item.type==='pack'||item.type==='commonpack'){
+      totalPrice+=item.price;
+      totalOrig+=item.origPrice;
+      labels.push(item.name);
+    } else {
+      // individual subject
+      totalPrice+=UNIT_PRICE;
+      totalOrig+=UNIT_PRICE;
+      labels.push(item.name);
+    }
+  });
+  
+  const packCount=items.filter(i=>i.type==='pack'||i.type==='commonpack').length;
+  const subjCount=items.filter(i=>i.type!=='pack'&&i.type!=='commonpack').length;
+  let countLabel='';
+  if(packCount>0&&subjCount>0) countLabel=packCount+'個方案 + '+subjCount+'科';
+  else if(packCount>0) countLabel=packCount+'個方案';
+  else countLabel=subjCount+'科已選';
+  
+  const ci=document.getElementById('cart-count');
+  const ct=document.getElementById('cart-total');
+  const cit=document.getElementById('cart-items');
+  if(ci)ci.textContent=countLabel;
+  if(ct)ct.textContent='NT$'+totalPrice.toLocaleString()+(totalOrig>totalPrice?' (折後)':'');
+  if(cit)cit.textContent=labels.join('、');
   bar.style.display='flex';
-  const total=codes.length*UNIT_PRICE;
-  document.getElementById('cart-count').textContent=codes.length+' 科已選';
-  document.getElementById('cart-total').textContent='NT$'+total.toLocaleString();
-  document.getElementById('cart-items').textContent=Object.values(cart).map(v=>v.name).join('、');
 }
+
 function clearCart(){cart={};updateCartBar();}
 function checkoutCart(){
-  const codes=Object.keys(cart);
-  if(!codes.length)return;
-  const total=codes.length*UNIT_PRICE;
-  const names=Object.values(cart).map(v=>v.name).join('、');
-  purchaseTarget={type:'multi',codes,total};couponOk=false;
-  setPM('購買 '+codes.length+' 個考科',names.length>40?names.slice(0,38)+'…':names,'各科獨立授權 1 年','NT$'+total.toLocaleString(),null,'NT$'+total.toLocaleString());
+  const items=Object.values(cart);
+  if(!items.length)return;
+  
+  let totalPrice=0, totalOrig=0;
+  let rows='';
+  items.forEach(function(item){
+    if(item.type==='pack'||item.type==='commonpack'){
+      totalPrice+=item.price;
+      totalOrig+=item.origPrice;
+      const disc=item.origPrice-item.price;
+      rows+='<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);font-size:15px">'
+        +'<div><div style="font-weight:700">'+item.name+'</div>'
+        +'<div style="font-size:13px;color:var(--ink3)">共 '+item.subjects+' 科 · 授權 1 年</div></div>'
+        +'<div style="text-align:right">'
+        +'<div style="text-decoration:line-through;color:var(--ink4);font-size:13px">NT$'+item.origPrice.toLocaleString()+'</div>'
+        +'<div style="color:var(--grn);font-weight:700">NT$'+item.price.toLocaleString()+' (9折)</div>'
+        +'</div></div>';
+    } else {
+      totalPrice+=UNIT_PRICE;
+      totalOrig+=UNIT_PRICE;
+      rows+='<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);font-size:15px">'
+        +'<div><div style="font-weight:700">'+item.name+'</div>'
+        +'<div style="font-size:13px;color:var(--ink3)">單科 · 授權 1 年</div></div>'
+        +'<div style="font-weight:700">NT$'+UNIT_PRICE.toLocaleString()+'</div>'
+        +'</div>';
+    }
+  });
+  const disc=totalOrig-totalPrice;
+  const summaryRows=rows
+    +'<div style="display:flex;justify-content:space-between;padding:10px 0;font-size:15px">'
+    +'<div style="color:var(--ink3)">原價</div><div>NT$'+totalOrig.toLocaleString()+'</div></div>'
+    +(disc>0?'<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:15px">'
+    +'<div style="color:var(--grn)">折扣</div><div style="color:var(--grn)">-NT$'+disc.toLocaleString()+'</div></div>':'')
+    +'<div style="display:flex;justify-content:space-between;padding:12px 0;font-size:17px;font-weight:800;border-top:2px solid var(--bd);margin-top:4px">'
+    +'<div>應付金額</div><div style="color:var(--grn)">NT$'+totalPrice.toLocaleString()+'</div></div>';
+  
+  purchaseTarget={type:'multi',items,total:totalPrice};couponOk=false;
+  const el=n=>document.getElementById(n);
+  if(el('pm-title'))el('pm-title').textContent='確認購買';
+  if(el('pm-name'))el('pm-name').textContent='';
+  // Use pm-details area to show full breakdown
+  if(el('pm-details'))el('pm-details').innerHTML='';
+  // Override the modal body with custom breakdown
+  const mbody=document.querySelector('#purchase-modal .mbody');
+  if(mbody){
+    // Store original content to restore later
+    if(!mbody._origContent)mbody._origContent=mbody.innerHTML;
+    mbody.innerHTML='<div style="font-family:serif;font-size:18px;font-weight:700;margin-bottom:16px">確認購買</div>'
+      +summaryRows
+      +'<div id="coupon-section" style="margin:16px 0">'
+      +'<div style="font-size:13px;color:var(--ink3);margin-bottom:6px">學校抵用序號</div>'
+      +'<div style="display:flex;gap:8px"><input id="coupon-inp" placeholder="MOSME-XXXX-XXXX" style="flex:1;padding:10px 13px;border-radius:8px;border:1.5px solid var(--bd);background:var(--surf2);font-size:14px;color:var(--ink);outline:none">'
+      +'<button onclick="applyCoupon()" style="padding:10px 16px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer">套用</button></div></div>'
+      +'<div style="font-size:12px;color:var(--ink4);margin-bottom:14px">選擇付款方式（由藍新金流處理）</div>'
+      +'<button onclick="submitPurchaseWith(&quot;apple&quot;)" style="width:100%;padding:13px;border-radius:10px;background:#000;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px">🍎 Apple Pay</button>'
+      +'<button onclick="submitPurchaseWith(&quot;linepay&quot;)" style="width:100%;padding:13px;border-radius:10px;background:#06C755;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px">LINE Pay</button>'
+      +'<button onclick="submitPurchaseWith(&quot;creditcard&quot;)" style="width:100%;padding:13px;border-radius:10px;background:var(--surf);color:var(--ink);font-size:15px;font-weight:600;border:1.5px solid var(--bd);cursor:pointer;margin-bottom:12px">💳 信用卡</button>'
+      +'<div style="text-align:center;font-size:12px;color:var(--ink4)">🔒 256-bit SSL · PCI DSS 合規 · 模擬展示不扣款</div>';
+  }
   openModal('purchase-modal');
+  // Restore modal content on close
+  const origClose=window._pmCloseHandler;
+  window._pmCloseHandler=function(){
+    if(mbody&&mbody._origContent){mbody.innerHTML=mbody._origContent;mbody._origContent=null;}
+  };
 }
+
 function setPM(title,name,details,orig,disc,final){
   document.getElementById('pm-title').textContent=title;
   document.getElementById('pm-name').textContent=name;
@@ -1247,23 +1333,80 @@ function openGroupPackPurchase(gid){
   const price=calcPackPrice(gid);
   const orig=g.subjects.length*UNIT_PRICE;
   const disc=orig-price;
-  purchaseTarget={type:'pack',gid};couponOk=false;
-  const el=n=>document.getElementById(n);
-  if(el('pm-title'))el('pm-title').textContent='群科包';
-  if(el('pm-name'))el('pm-name').textContent=g.name+' 群科包';
-  if(el('pm-details'))el('pm-details').textContent='共 '+g.subjects.length+' 科 · 授權 1 年';
-  if(el('pm-expiry'))el('pm-expiry').textContent=expiryStr();
-  if(el('pm-orig'))el('pm-orig').textContent='NT$'+orig.toLocaleString()+' (原價)';
-  if(el('pm-disc'))el('pm-disc').textContent='-NT$'+disc.toLocaleString()+' (9折)';
-  if(el('pm-disc-row'))el('pm-disc-row').style.display='flex';
-  if(el('pm-final'))el('pm-final').textContent='NT$'+price.toLocaleString();
-  if(el('pm-price'))el('pm-price').textContent='NT$'+orig.toLocaleString();
-  if(el('pm-form'))el('pm-form').style.display='block';
-  if(el('pm-free-notice'))el('pm-free-notice').style.display='none';
-  const ci=el('coupon-inp');if(ci)ci.value='';
+  // Store as current pack order (not in cart)
+  purchaseTarget={type:'pack',gid,price,orig};
+  couponOk=false;
+  // Build purchase modal with full breakdown
+  buildPackPurchaseModal(g,price,orig,disc);
   openModal('purchase-modal');
-  // Show common pack upsell after short delay
-  setTimeout(()=>showCommonUpsell(gid), 300);
+  // Show upsell after modal opens
+  setTimeout(()=>showCommonUpsell(gid),350);
+}
+
+function buildPackPurchaseModal(g,price,orig,disc,extraItems){
+  // Clear all existing content sections (product card, summary, coupon, payment)
+  var pmProduct=document.getElementById('pm-product')||document.querySelector('.pm-product');
+  var pmSheet=document.querySelector('#purchase-modal .pm-sheet');
+  if(!pmSheet)return;
+
+  // Build items HTML
+  var rows='', totalPrice=price, totalOrig=orig;
+
+  // Group pack row
+  rows+='<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--bd)">'
+    +'<div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px">'+g.name+' 群科包</div>'
+    +'<div style="font-size:13px;color:var(--ink3)">共 '+g.subjects.length+' 科 · 授權 1 年</div></div>'
+    +'<div style="text-align:right;flex-shrink:0;margin-left:16px">'
+    +'<div style="font-size:12px;color:var(--ink4);text-decoration:line-through">NT$'+orig.toLocaleString()+'</div>'
+    +'<div style="font-size:15px;font-weight:700;color:var(--grn)">NT$'+price.toLocaleString()+' <span style="font-size:11px;font-weight:400">9折</span></div>'
+    +'</div></div>';
+
+  // Extra items
+  if(extraItems&&extraItems.length){
+    extraItems.forEach(function(item){
+      totalPrice+=item.price; totalOrig+=item.origPrice;
+      rows+='<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--bd)">'
+        +'<div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px">'+item.name+'</div>'
+        +'<div style="font-size:13px;color:var(--ink3)">共 '+item.subjects+' 科 · 授權 1 年</div></div>'
+        +'<div style="text-align:right;flex-shrink:0;margin-left:16px">'
+        +'<div style="font-size:12px;color:var(--ink4);text-decoration:line-through">NT$'+item.origPrice.toLocaleString()+'</div>'
+        +'<div style="font-size:15px;font-weight:700;color:var(--grn)">NT$'+item.price.toLocaleString()+' <span style="font-size:11px;font-weight:400">9折</span></div>'
+        +'</div></div>';
+    });
+  }
+
+  var totalDisc=totalOrig-totalPrice;
+  var summary='<div style="padding:12px 0 8px">'
+    +(totalDisc>0
+      ?'<div style="display:flex;justify-content:space-between;font-size:14px;color:var(--ink3);padding:4px 0"><span>原價</span><span>NT$'+totalOrig.toLocaleString()+'</span></div>'
+      +'<div style="display:flex;justify-content:space-between;font-size:14px;color:var(--grn);padding:4px 0"><span>折扣</span><span>-NT$'+totalDisc.toLocaleString()+'</span></div>'
+      :'')
+    +'<div style="display:flex;justify-content:space-between;font-size:18px;font-weight:800;border-top:2px solid var(--bd);padding-top:10px;margin-top:6px">'
+    +'<span>應付金額</span><span style="color:var(--grn)">NT$'+totalPrice.toLocaleString()+'</span></div>'
+    +'</div>';
+
+  var coupon='<div style="margin:14px 0 10px">'
+    +'<div style="font-size:13px;color:var(--ink3);margin-bottom:6px">學校抵用序號</div>'
+    +'<div style="display:flex;gap:8px">'
+    +'<input id="coupon-inp" placeholder="MOSME-XXXX-XXXX" style="flex:1;padding:10px 12px;border-radius:8px;border:1.5px solid var(--bd);background:var(--surf2);font-size:14px;color:var(--ink);outline:none">'
+    +'<button onclick="applyCoupon()" style="padding:10px 16px;border-radius:8px;border:none;background:var(--grn);color:#fff;font-size:14px;font-weight:700;cursor:pointer">套用</button>'
+    +'</div><div id="coupon-msg" style="font-size:12px;margin-top:5px;color:var(--grn)"></div></div>';
+
+  var payment='<div style="font-size:13px;color:var(--ink4);margin-bottom:10px">選擇付款方式（由藍新金流處理）</div>'
+    +'<button onclick="submitPurchaseWith(&quot;applepay&quot;)" style="width:100%;padding:13px;border-radius:10px;background:#000;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px">🍎 Apple Pay</button>'
+    +'<button onclick="submitPurchaseWith(&quot;linepay&quot;)" style="width:100%;padding:13px;border-radius:10px;background:#06C755;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px">LINE Pay</button>'
+    +'<button onclick="submitPurchaseWith(&quot;creditcard&quot;)" style="width:100%;padding:13px;border-radius:10px;background:var(--surf);color:var(--ink);font-size:15px;font-weight:600;border:1.5px solid var(--bd);cursor:pointer;margin-bottom:10px">💳 信用卡</button>'
+    +'<div style="text-align:center;font-size:12px;color:var(--ink4)">🔒 256-bit SSL · PCI DSS 合規 · 模擬展示不扣款</div>';
+
+  // Replace pm-sheet content (keep header, replace everything else)
+  var hdr=pmSheet.querySelector('.pm-hdr');
+  pmSheet.innerHTML='';
+  if(hdr)pmSheet.appendChild(hdr);
+
+  var body=document.createElement('div');
+  body.style.cssText='padding:0 20px 20px;overflow-y:auto;max-height:calc(100vh - 120px)';
+  body.innerHTML=rows+summary+coupon+payment;
+  pmSheet.appendChild(body);
 }
 
 function openCommonPkg(v){
@@ -1468,7 +1611,7 @@ function buildCarousel(){
           +'<button class="car-btn-s" onclick="'+s.p2a+'">'+s.p2+'</button>'
         +'</div>'
       +'</div>'
-      +'<div class="car-visual">'+s.icon+'</div>'
+      +'<div class="car-visual" style="width:clamp(160px,20vw,280px);height:clamp(160px,20vw,280px);border-radius:50%;border:clamp(3px,0.4vw,6px) solid rgba(255,255,255,0.15);position:absolute;right:clamp(20px,4vw,60px);top:50%;transform:translateY(-50%)"></div>'
       +'</div>';
   }).join('');
   dots.innerHTML=SLIDES.map(function(_,i){return '<button class="cnd'+(i===0?' on':'')+'" onclick="carGo('+i+')"></button>';}).join('');
@@ -2499,6 +2642,7 @@ function showCommonUpsell(gid){
     +'</div>';
   });
   container.innerHTML=html;
+  closeModal('purchase-modal');
   openModal('upsell-modal');
 }
 
@@ -2508,18 +2652,27 @@ function upsellToggle(pkId,checked){
 }
 
 function addUpsellToCart(){
+  const extraItems=[];
   upsellSelected.forEach(function(pkId){
-    var pk=COMMON_PACKS.find(function(p){return p.id===pkId;});
+    const pk=COMMON_PACKS.find(function(p){return p.id===pkId;});
     if(!pk)return;
-    pk.subjects.forEach(function(s){
-      cart[s.code]={name:s.name,gid:pk.id,gname:pk.label};
-    });
+    const price=Math.round(pk.subjects.length*UNIT_PRICE*PACK_DISC);
+    const orig=pk.subjects.length*UNIT_PRICE;
+    extraItems.push({type:'commonpack',pkId,name:pk.label,price,origPrice:orig,subjects:pk.subjects.length});
+    // Also add to cart for bottom bar (single subjects purchases)
+    cart['commonpack_'+pkId]={type:'commonpack',pkId,name:pk.label,price,origPrice:orig,subjects:pk.subjects.length};
   });
-  updateCartBar();
   closeModal('upsell-modal');
+  // Rebuild purchase modal with all items (pack + common packs)
+  if(purchaseTarget&&purchaseTarget.type==='pack'){
+    const g=ALL_GROUPS.find(x=>x.id===purchaseTarget.gid);
+    if(g){
+      buildPackPurchaseModal(g,purchaseTarget.price,purchaseTarget.orig,purchaseTarget.orig-purchaseTarget.price,extraItems);
+      openModal('purchase-modal');
+    }
+  }
 }
 
-// ── SCHED ANALYSIS PANEL ──
 function toggleSchedAnalysis(){
   const panel=document.getElementById('sched-analysis-panel');
   const btn=document.getElementById('sched-analysis-btn');
